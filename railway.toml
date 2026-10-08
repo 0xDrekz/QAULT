@@ -1,0 +1,12 @@
+# Connect the Railway service to the qault repo, branch main, auto-deploy on.
+# Set RPC_URL in Railway's variables (never in a file).
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "node server.js"
+healthcheckPath = "/"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5

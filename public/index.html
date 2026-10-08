@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QAULT — Is your wallet ready for Q-Day?</title>
+  <meta name="description" content="Paste any Solana address and see how exposed it is to a future quantum computer. Read-only — no wallet connection.">
+  <meta property="og:title" content="QAULT — Is your wallet ready for Q-Day?">
+  <meta property="og:description" content="Paste any Solana address and see how exposed it is to a future quantum computer.">
+  <meta name="theme-color" content="#07060d">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="field" aria-hidden="true"></canvas>
+
+  <header class="top">
+    <a class="mark" href="/" aria-label="QAULT home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M20 20l6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="currentColor"/></svg>
+      QAULT
+    </a>
+    <span class="tag">exposure checker · beta</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Solana · post-quantum readiness</p>
+      <h1>Is your wallet ready for <span class="q">Q-Day</span>?</h1>
+      <p class="lede">Every normal Solana address <em>is</em> its public key, on display for anyone. A powerful enough quantum computer could one day work backwards from it to the secret key. Paste any address and see what's sitting behind it.</p>
+
+      <form id="form" class="check" autocomplete="off">
+        <label for="address" class="sr">Solana address</label>
+        <input id="address" name="address" placeholder="Paste a Solana address…" spellcheck="false" inputmode="text" required>
+        <button type="submit" id="go">Check</button>
+      </form>
+      <p class="fine">Read-only. You never connect a wallet or sign anything, so you can check any address, not only your own.</p>
+    </section>
+
+    <section id="result" class="result" hidden aria-live="polite"></section>
+
+    <section class="explain">
+      <h2>How it works, simply</h2>
+      <div class="cards">
+        <article>
+          <span class="n">01</span>
+          <h3>Your address is a lock everyone can see</h3>
+          <p>Your private key is the combination. Today's computers would need billions of years to work it out from the lock alone. That's why crypto works.</p>
+        </article>
+        <article>
+          <span class="n">02</span>
+          <h3>Quantum computers are good at exactly that puzzle</h3>
+          <p>None are strong enough yet, and nobody knows when one will be: maybe years, maybe never. The day it happens is called <strong>Q-Day</strong>.</p>
+        </article>
+        <article>
+          <span class="n">03</span>
+          <h3>A different kind of lock fixes it</h3>
+          <p>Hash-based locks rely on maths quantum computers are bad at. Each combination works once, so funds move to a fresh lock every time they're spent. QAULT is building a vault that does that for you.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="levels">
+      <h2>What the results mean</h2>
+      <dl>
+        <div><dt><i class="dot shielded"></i>Shielded</dt><dd>An off-curve address (a program derived address). No private key exists, so there's nothing to recover.</dd></div>
+        <div><dt><i class="dot empty"></i>Exposed · empty</dt><dd>The key is public, but there's nothing behind it.</dd></div>
+        <div><dt><i class="dot low"></i>Exposed · low</dt><dd>Under $1,000 behind a public key.</dd></div>
+        <div><dt><i class="dot medium"></i>Exposed · medium</dt><dd>$1,000 to $100,000 behind a public key.</dd></div>
+        <div><dt><i class="dot high"></i>Exposed · high</dt><dd>Over $100,000 behind a public key.</dd></div>
+      </dl>
+      <p class="fine">"Exposed" describes readiness, not danger today. No quantum computer can do this yet. Solana has a plan to move to post-quantum signatures (Falcon) when it's needed, but hasn't switched it on.</p>
+    </section>
+
+    <section class="vault">
+      <h2>The vault is coming</h2>
+      <p>QAULT Vault: quantum-resistant storage for Solana that feels like a normal wallet, and moves you across in one step when Solana upgrades. It's being built on devnet first, with pretend money, and only goes live after testing and an independent audit.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>QAULT reads public on-chain data and keeps no record of the addresses you check. Prices come from Jupiter. Nothing here is financial advice, and nobody knows when, or whether, Q-Day will arrive.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
