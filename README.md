@@ -4,7 +4,8 @@ Quantum-resistant storage for Solana. This repository starts with the
 **exposure checker**: paste any Solana address and see how exposed it is to
 a future quantum computer.
 
-No wallet connection, no signing, no build step, no dependencies.
+No wallet connection, no signing, no build step. One dependency
+(`@resvg/resvg-js`, for drawing share cards).
 
 ## Why
 
@@ -33,14 +34,30 @@ Plus how long the key has been public (from its oldest transaction), its
 transaction count, SOL balance and SPL / Token-2022 holdings priced via
 Jupiter.
 
+Token prices only count when the token has at least $10k of liquidity on
+Jupiter, because wallets get airdropped spam tokens with made-up prices.
+
 "Exposed" describes readiness, not danger today. Solana has a migration
 plan (Falcon signatures) that has not been switched on.
+
+## Share cards
+
+Every result link (`/?a=<address>`) carries its own preview image, so a
+post on X, Telegram or Discord shows the result itself: the amount, the
+verdict and how long the key has been public.
+
+- `/og.png` is the home page's card, and `/og/<address>.png` is a result's.
+- Cards are drawn as SVG and rendered to PNG with resvg, using the fonts in
+  `fonts/`.
+- Rendered cards are cached for ten minutes.
 
 ## Layout
 
 ```
-server.js          static files + GET /api/check?address=…
+server.js          static files, GET /api/check?address=…, share cards, share tags
 address.js         base58 decoding and the Ed25519 on-curve test (BigInt, no deps)
+og.js              the 1200x630 share card
+fonts/             Space Grotesk + JetBrains Mono (OFL)
 public/            the page: index.html, styles.css, app.js
 test/              node --test; on-curve vectors produced by @solana/web3.js
 ```
@@ -48,6 +65,7 @@ test/              node --test; on-curve vectors produced by @solana/web3.js
 ## Run it
 
 ```
+npm install
 npm start          # http://localhost:3000
 npm test
 ```
@@ -59,6 +77,8 @@ npm test
    URL (key included). Never commit it.
    Without it the server falls back to Solana's public RPC, which works but
    is rate-limited — busy wallets will show partial history.
+3. Once it has its own domain, set **`PUBLIC_URL`** (e.g. `https://qault.xyz`)
+   so share links and cards always point at it.
 
 The server caches each answer for a minute and limits each caller to 20
 checks a minute so nobody can burn through the RPC key. It keeps no record

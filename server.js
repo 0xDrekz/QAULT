@@ -15,6 +15,7 @@ const https = require("https");
 const fs    = require("fs");
 const path  = require("path");
 const { decode, onCurve } = require("./address");
+const og = require("./og");
 
 const PORT    = process.env.PORT || 3000;
 const ROOT    = path.join(__dirname, "public");
@@ -90,7 +91,12 @@ const HISTORY_PAGES = 5;
 
 /* Most wallets hold a handful of tokens; exchanges hold thousands of
    airdropped dust. Beyond this many, the rest are counted but not priced. */
-const MAX_PRICED = 250;
+const MAX_PRICED = 2000;
+
+/* Wallets get airdropped spam tokens with made-up prices, which turned one
+   exchange wallet's ~$250M into $1.6B. A price only counts if the token has
+   real liquidity behind it. */
+const MIN_LIQUIDITY = 10_000;
 
 /* History is a nice-to-have: if the RPC gives out part way, report what
    was read rather than failing the whole check. */
@@ -130,13 +136,27 @@ async function tokens(address) {
 
 async function prices(mints) {
   const out = {};
-  // the price API takes 50 ids at a time
-  for (let i = 0; i < mints.length; i += 50) {
-    try {
-      const j = await get(PRICE + mints.slice(i, i + 50).join(","));
-      for (const [m, p] of Object.entries(j || {})) if (p && p.usdPrice) out[m] = p.usdPrice;
-    } catch { /* no price is not fatal: the token is listed without a value */ }
-  }
+  // the price API takes 50 ids at a time; ask a few batches at once
+  const batches = [];
+  for (let i = 0; i < mints.length; i += 50) batches.push(mints.slice(i, i + 50));
+  const next = async () => {
+    for (let b; (b = batches.shift()); ) {
+      for (let attempt = 0; attempt < 4; attempt++) {
+        try {
+          const j = await get(PRICE + b.join(","));
+          for (const [m, p] of Object.entries(j || {}))
+            if (p && p.usdPrice && (m === SOL_MINT || (p.liquidity || 0) >= MIN_LIQUIDITY))
+              out[m] = p.usdPrice;
+          break;
+        } catch {
+          // rate-limited or timed out: back off and try again; after that the
+          // tokens are listed without a value, which is not fatal
+          await sleep(500 * 2 ** attempt);
+        }
+      }
+    }
+  };
+  await Promise.all(Array.from({ length: 3 }, next));
   return out;
 }
 
@@ -176,7 +196,7 @@ async function check(address) {
   const v = account?.value;
   const sol = (v?.lamports || 0) / 1e9;
   const mints = [...held.keys()];
-  // a wallet can hold thousands of dust tokens; price the first few hundred
+  // a wallet can hold thousands of dust tokens; price up to MAX_PRICED of them
   const px = await prices([SOL_MINT, ...mints.slice(0, MAX_PRICED)]);
 
   const list = mints.map(mint => {
@@ -214,8 +234,9 @@ async function check(address) {
 
 /* ---------- not getting burned ---------- */
 
-/* One answer per address for a minute: refreshing, or a crowd checking
-   the same whale, should not each cost a round of RPC calls. */
+/* One answer per address for a minute: refreshing, a crowd checking the
+   same whale, or the share card for a page just checked, should not each
+   cost a round of RPC calls. Cached answers don't count against the limit. */
 const cache = new Map();
 const CACHE_MS = 60_000;
 
@@ -239,26 +260,100 @@ function send(res, status, body, type = "application/json; charset=utf-8", extra
   res.end(body);
 }
 
-async function api(req, res, url) {
-  const ip = (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || req.socket.remoteAddress;
-  if (!allowed(ip)) return send(res, 429, JSON.stringify({ error: "Too many checks — wait a minute." }));
+function ipOf(req) {
+  return (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || req.socket.remoteAddress;
+}
 
-  const address = (url.searchParams.get("address") || "").trim();
+/* A check, through the cache. Throws if Solana doesn't answer. */
+async function cachedCheck(address) {
   const hit = cache.get(address);
-  if (hit && Date.now() - hit.at < CACHE_MS) return send(res, 200, hit.body);
+  if (hit && Date.now() - hit.at < CACHE_MS) return hit.result;
+  const result = await check(address);
+  if (!result.error) {
+    cache.set(address, { at: Date.now(), result });
+    if (cache.size > 2000) cache.delete(cache.keys().next().value);
+  }
+  return result;
+}
 
+async function api(req, res, url) {
+  const address = (url.searchParams.get("address") || "").trim();
+  if (!cache.has(address) && !allowed(ipOf(req)))
+    return send(res, 429, JSON.stringify({ error: "Too many checks — wait a minute." }));
   try {
-    const result = await check(address);
-    const body = JSON.stringify(result);
-    if (!result.error) {
-      cache.set(address, { at: Date.now(), body });
-      if (cache.size > 2000) cache.delete(cache.keys().next().value);
-    }
-    send(res, result.error ? 400 : 200, body);
+    const result = await cachedCheck(address);
+    send(res, result.error ? 400 : 200, JSON.stringify(result));
   } catch (e) {
     console.error("check failed:", e.message);
     send(res, 502, JSON.stringify({ error: "Solana didn't answer in time. Try again in a moment." }));
   }
+}
+
+/* ---------- share cards ----------
+   /og.png is the home page's card; /og/<address>.png is a result's.
+   Rendered cards are kept for ten minutes: when a link goes round, every
+   app that unfurls it asks for the same picture. */
+
+const cards = new Map();
+const CARD_MS = 10 * 60_000;
+
+function publicHost(req) {
+  if (process.env.PUBLIC_URL) return process.env.PUBLIC_URL.replace(/\/+$/, "");
+  const proto = (req.headers["x-forwarded-proto"] || "").split(",")[0].trim() === "https" ? "https" : "http";
+  // the Host header ends up in the page, so only let a plain hostname through
+  const host = /^[A-Za-z0-9.-]+(:\d+)?$/.test(req.headers.host || "") ? req.headers.host : "localhost";
+  return `${proto}://${host}`;
+}
+
+const bare = origin => origin.replace(/^https?:\/\//, "");
+
+async function card(req, res, address) {
+  const host = bare(publicHost(req));
+  const key = (address || "") + "|" + host;
+  const hit = cards.get(key);
+  if (hit && Date.now() - hit.at < CARD_MS) return send(res, 200, hit.png, "image/png", { "Cache-Control": "public, max-age=600" });
+
+  let result = null;
+  if (address) {
+    if (!decode(address)) return send(res, 404, "Not found", "text/plain");
+    if (!cache.has(address) && !allowed(ipOf(req))) return send(res, 429, "Too many requests", "text/plain");
+    try { result = await cachedCheck(address); }
+    catch { result = null; }          // Solana is slow: fall back to the home card rather than nothing
+  }
+  const png = og.png(result, host);
+  if (!png) return send(res, 404, "Not found", "text/plain");
+  // only keep a card that shows the real answer
+  if (!address || result) {
+    cards.set(key, { at: Date.now(), png });
+    if (cards.size > 500) cards.delete(cards.keys().next().value);
+  }
+  send(res, 200, png, "image/png", { "Cache-Control": `public, max-age=${!address || result ? 600 : 60}` });
+}
+
+/* The page, with share tags filled in. A link to /?a=<address> gets that
+   address's card, so the picture in the post is the result itself. */
+const PAGE = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+
+function page(req, res, url) {
+  const origin = publicHost(req);
+  const a = (url.searchParams.get("a") || "").trim();
+  const valid = !!decode(a);
+  const image = valid ? `${origin}/og/${a}.png` : `${origin}/og.png`;
+  const title = valid ? `QAULT · ${a.slice(0, 4)}…${a.slice(-4)} — is it ready for Q-Day?` : "QAULT — Is your wallet ready for Q-Day?";
+  const tags = [
+    `<meta property="og:type" content="website">`,
+    `<meta property="og:url" content="${origin}${valid ? "/?a=" + a : "/"}">`,
+    `<meta property="og:image" content="${image}">`,
+    `<meta property="og:image:width" content="1200">`,
+    `<meta property="og:image:height" content="630">`,
+    `<meta name="twitter:card" content="summary_large_image">`,
+    `<meta name="twitter:title" content="${title}">`,
+    `<meta name="twitter:image" content="${image}">`
+  ].join("\n  ");
+  const html = PAGE
+    .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${title}">`)
+    .replace("</head>", `  ${tags}\n</head>`);
+  send(res, 200, html, TYPES[".html"], { "Cache-Control": "no-cache" });
 }
 
 function file(res, pathname) {
@@ -277,6 +372,10 @@ if (require.main === module) {
     const url = new URL(req.url, "http://x");
     if (url.pathname === "/api/check") return api(req, res, url);
     if (req.method !== "GET" && req.method !== "HEAD") return send(res, 405, "Method not allowed", "text/plain");
+    if (url.pathname === "/" || url.pathname === "/index.html") return page(req, res, url);
+    if (url.pathname === "/og.png") return card(req, res, null);
+    const m = url.pathname.match(/^\/og\/([1-9A-HJ-NP-Za-km-z]{32,44})\.png$/);
+    if (m) return card(req, res, m[1]);
     file(res, url.pathname);
   }).listen(PORT, () => console.log(`QAULT on :${PORT} — RPC ${RPC_URL.replace(/api-key=[^&]+/, "api-key=…")}`));
 }
