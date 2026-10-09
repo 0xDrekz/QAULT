@@ -107,6 +107,8 @@ the repo.
 
 ## The vault
 
+Auditors: start with [docs/AUDIT.md](docs/AUDIT.md).
+
 ```
 program/            the on-chain program (Rust)
   src/wots.rs       Winternitz one-time signatures

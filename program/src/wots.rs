@@ -196,6 +196,35 @@ mod tests {
     }
 
     #[test]
+    fn a_seen_signature_cannot_be_walked_forward_to_another_message() {
+        // The classic Winternitz forgery: take a published signature and walk
+        // some chains further, to sign a digest whose digits are all higher.
+        // Raising any message digit lowers the checksum, and its chain can't
+        // be walked backwards, so the forgery must fail. Try it on every byte.
+        let k = Key::derive(&[9u8; 32], 0);
+        let mut m1 = [0u8; 32];
+        for (i, b) in m1.iter_mut().enumerate() { *b = (i * 7) as u8; }
+        let sig = k.sign(&m1);
+        let d1 = digits(&m1);
+        for byte in 0..32 {
+            let mut m2 = m1;
+            m2[byte] += 1; // one message digit up, so the checksum goes down
+            let d2 = digits(&m2);
+            let mut forged = sig.clone();
+            for i in 0..CHAINS {
+                if d2[i] >= d1[i] {
+                    let mut x = [0u8; N];
+                    x.copy_from_slice(&sig[i * N..(i + 1) * N]);
+                    let w = walk(&k.salt, i as u8, d1[i] as u16, d2[i] as u16, &x);
+                    forged[i * N..(i + 1) * N].copy_from_slice(&w);
+                }
+                // where d2 < d1 the forger is stuck with the old value
+            }
+            assert_ne!(recover(&k.salt, &forged, &m2), Some(k.pubkey_hash()), "byte {byte}");
+        }
+    }
+
+    #[test]
     fn checksum_balances_the_digits() {
         // all-zero digest: every chain fully unwalked, checksum at maximum
         let d = digits(&[0u8; 32]);
