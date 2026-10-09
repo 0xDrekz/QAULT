@@ -349,7 +349,10 @@ const cards = new Map();
 const CARD_MS = 10 * 60_000;
 
 function publicHost(req) {
-  if (process.env.PUBLIC_URL) return process.env.PUBLIC_URL.replace(/\/+$/, "");
+  if (process.env.PUBLIC_URL) {
+    const u = process.env.PUBLIC_URL.trim().replace(/\/+$/, "");
+    return /^https?:\/\//.test(u) ? u : "https://" + u;   // "qault.xyz" works as well as "https://qault.xyz"
+  }
   const proto = (req.headers["x-forwarded-proto"] || "").split(",")[0].trim() === "https" ? "https" : "http";
   // the Host header ends up in the page, so only let a plain hostname through
   const host = /^[A-Za-z0-9.-]+(:\d+)?$/.test(req.headers.host || "") ? req.headers.host : "localhost";
