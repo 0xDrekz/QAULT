@@ -331,8 +331,15 @@ function devnet(req, res) {
       // the faucet hands out at most 1 SOL a time
       call.params[1] = Math.min(Number(call.params[1]) || 0, 1_000_000_000);
     }
+    const body2 = { jsonrpc: "2.0", id: call.id ?? 1, method: call.method, params: call.params ?? [] };
     try {
-      const j = await post(DEVNET_URL, { jsonrpc: "2.0", id: call.id ?? 1, method: call.method, params: call.params ?? [] });
+      let j = await post(DEVNET_URL, body2).catch(e => ({ error: { message: e.message } }));
+      // devnet faucets run dry often; if ours does, try Solana's public one
+      if (call.method === "requestAirdrop" && j.error && DEVNET_URL !== "https://api.devnet.solana.com")
+        j = await post("https://api.devnet.solana.com", body2).catch(e => ({ error: { message: e.message } }));
+      if (call.method === "requestAirdrop" && j.error)
+        j = { jsonrpc: "2.0", id: body2.id, error: { code: 429, message: "The devnet faucets are dry right now (they're rate-limited). Get test SOL at faucet.solana.com and paste this address." } };
+      if (j.error && !j.jsonrpc) throw new Error(j.error.message);
       send(res, 200, JSON.stringify(j));
     } catch (e) {
       send(res, 502, JSON.stringify({ error: { message: "Devnet didn't answer in time. Try again." } }));

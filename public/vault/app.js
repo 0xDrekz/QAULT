@@ -273,9 +273,10 @@ async function faucet(btn, address, out) {
     await refresh();
   } catch (e) {
     out.className = "msg err";
-    out.textContent = e.message.includes("limit") || e.message.includes("429")
-      ? "The faucet is rate-limited right now. Try again later, or use faucet.solana.com and paste the address."
-      : e.message;
+    out.innerHTML = /limit|429|dry/i.test(e.message)
+      ? `The devnet faucets are rate-limited right now. Get test SOL at <a href="https://faucet.solana.com" target="_blank" rel="noopener">faucet.solana.com</a> and paste this address (it's copied):<br><code>${esc(address)}</code>`
+      : esc(e.message);
+    try { await navigator.clipboard.writeText(address); } catch { /* fine */ }
     btn.disabled = false;
   }
 }
