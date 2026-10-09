@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 500"><rect width="1500" height="500" fill="#fff"/>
+  <text x="750" y="150" text-anchor="middle" font-family="JetBrains Mono" font-weight="500" font-size="26" letter-spacing="8" fill="#8a8a8a">Q-DAY</text>
+  <text x="750" y="280" text-anchor="middle" font-family="JetBrains Mono" font-weight="500" font-size="120" letter-spacing="10" fill="#000">??.??.20??</text>
+  <text x="750" y="350" text-anchor="middle" font-family="Instrument Serif" font-style="italic" font-size="46" fill="#000">Nobody knows when. Be ready anyway.</text>
+  <g transform="translate(1380 410) scale(2.2)"><circle cx="15" cy="15" r="8.5" fill="none" stroke="#000" stroke-width="1.8"/><path d="M18.6 18.6l5.4 5.4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="15" r="2.2" fill="#000"/></g><text x="1372" y="450" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="22" fill="#000">qault.xyz</text></svg>
