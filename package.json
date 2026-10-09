@@ -2,6 +2,7 @@
   "name": "qault",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "description": "QAULT — quantum-resistant storage for Solana. Starting with the exposure checker.",
   "scripts": {
     "start": "node server.js",
