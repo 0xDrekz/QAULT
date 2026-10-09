@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#fff"/>
+  <g transform="translate(100 90) scale(2.2)"><circle cx="15" cy="15" r="8.5" fill="none" stroke="#000" stroke-width="1.8"/><path d="M18.6 18.6l5.4 5.4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="15" r="2.2" fill="#000"/></g><text x="180" y="138" font-family="Inter" font-weight="600" font-size="28" letter-spacing="10" fill="#000">QAULT</text>
+  <text x="1500" y="138" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="22" letter-spacing="4" fill="#7a7a7a">THE ONE-TIME KEY</text>
+  <line x1="100" y1="190" x2="1500" y2="190" stroke="#d9d9d9"/>
+  <text x="96" y="380" font-family="Instrument Serif" font-size="150" letter-spacing="-3" fill="#000">Every key</text>
+  <text x="96" y="520" font-family="Instrument Serif" font-size="150" letter-spacing="-3" fill="#000">signs <tspan font-style="italic">once.</tspan></text>
+  <text x="104" y="600" font-family="Inter" font-weight="500" font-size="28" fill="#7a7a7a">Your vault is locked by 34 hash chains.</text><text x="104" y="640" font-family="Inter" font-weight="500" font-size="28" fill="#7a7a7a">A spend reveals one point on each, pays out,</text><text x="104" y="680" font-family="Inter" font-weight="500" font-size="28" fill="#7a7a7a">and moves the rest to a fresh vault</text><text x="104" y="720" font-family="Inter" font-weight="500" font-size="28" fill="#7a7a7a">with a fresh key. The old one is retired.</text>
+  
+    <line x1="880" y1="245" x2="880" y2="337.6470588235294" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="880" y1="337.6470588235294" x2="880" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="880" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="880" cy="337.6470588235294" r="5.5" fill="#000"/>
+    <path d="M880 620 C 880 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="898.060606060606" y1="245" x2="898.060606060606" y2="372.94117647058823" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="898.060606060606" y1="372.94117647058823" x2="898.060606060606" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="898.060606060606" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="898.060606060606" cy="372.94117647058823" r="5.5" fill="#000"/>
+    <path d="M898.060606060606 620 C 898.060606060606 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="916.1212121212121" y1="245" x2="916.1212121212121" y2="471.47058823529414" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="916.1212121212121" y1="471.47058823529414" x2="916.1212121212121" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="916.1212121212121" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="916.1212121212121" cy="471.47058823529414" r="5.5" fill="#000"/>
+    <path d="M916.1212121212121 620 C 916.1212121212121 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="934.1818181818182" y1="245" x2="934.1818181818182" y2="620" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="934.1818181818182" y1="620" x2="934.1818181818182" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="934.1818181818182" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="934.1818181818182" cy="620" r="5.5" fill="#000"/>
+    <path d="M934.1818181818182 620 C 934.1818181818182 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="952.2424242424242" y1="245" x2="952.2424242424242" y2="397.94117647058823" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="952.2424242424242" y1="397.94117647058823" x2="952.2424242424242" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="952.2424242424242" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="952.2424242424242" cy="397.94117647058823" r="5.5" fill="#000"/>
+    <path d="M952.2424242424242 620 C 952.2424242424242 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="970.3030303030303" y1="245" x2="970.3030303030303" y2="415.5882352941177" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="970.3030303030303" y1="415.5882352941177" x2="970.3030303030303" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="970.3030303030303" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="970.3030303030303" cy="415.5882352941177" r="5.5" fill="#000"/>
+    <path d="M970.3030303030303 620 C 970.3030303030303 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="988.3636363636364" y1="245" x2="988.3636363636364" y2="465.5882352941177" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="988.3636363636364" y1="465.5882352941177" x2="988.3636363636364" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="988.3636363636364" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="988.3636363636364" cy="465.5882352941177" r="5.5" fill="#000"/>
+    <path d="M988.3636363636364 620 C 988.3636363636364 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1006.4242424242425" y1="245" x2="1006.4242424242425" y2="328.8235294117647" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1006.4242424242425" y1="328.8235294117647" x2="1006.4242424242425" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1006.4242424242425" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1006.4242424242425" cy="328.8235294117647" r="5.5" fill="#000"/>
+    <path d="M1006.4242424242425 620 C 1006.4242424242425 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1024.4848484848485" y1="245" x2="1024.4848484848485" y2="580.2941176470588" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1024.4848484848485" y1="580.2941176470588" x2="1024.4848484848485" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1024.4848484848485" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1024.4848484848485" cy="580.2941176470588" r="5.5" fill="#000"/>
+    <path d="M1024.4848484848485 620 C 1024.4848484848485 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1042.5454545454545" y1="245" x2="1042.5454545454545" y2="464.11764705882354" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1042.5454545454545" y1="464.11764705882354" x2="1042.5454545454545" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1042.5454545454545" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1042.5454545454545" cy="464.11764705882354" r="5.5" fill="#000"/>
+    <path d="M1042.5454545454545 620 C 1042.5454545454545 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1060.6060606060605" y1="245" x2="1060.6060606060605" y2="561.1764705882354" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1060.6060606060605" y1="561.1764705882354" x2="1060.6060606060605" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1060.6060606060605" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1060.6060606060605" cy="561.1764705882354" r="5.5" fill="#000"/>
+    <path d="M1060.6060606060605 620 C 1060.6060606060605 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1078.6666666666667" y1="245" x2="1078.6666666666667" y2="349.4117647058824" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1078.6666666666667" y1="349.4117647058824" x2="1078.6666666666667" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1078.6666666666667" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1078.6666666666667" cy="349.4117647058824" r="5.5" fill="#000"/>
+    <path d="M1078.6666666666667 620 C 1078.6666666666667 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1096.7272727272727" y1="245" x2="1096.7272727272727" y2="471.47058823529414" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1096.7272727272727" y1="471.47058823529414" x2="1096.7272727272727" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1096.7272727272727" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1096.7272727272727" cy="471.47058823529414" r="5.5" fill="#000"/>
+    <path d="M1096.7272727272727 620 C 1096.7272727272727 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1114.7878787878788" y1="245" x2="1114.7878787878788" y2="511.1764705882353" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1114.7878787878788" y1="511.1764705882353" x2="1114.7878787878788" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1114.7878787878788" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1114.7878787878788" cy="511.1764705882353" r="5.5" fill="#000"/>
+    <path d="M1114.7878787878788 620 C 1114.7878787878788 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1132.848484848485" y1="245" x2="1132.848484848485" y2="361.1764705882353" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1132.848484848485" y1="361.1764705882353" x2="1132.848484848485" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1132.848484848485" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1132.848484848485" cy="361.1764705882353" r="5.5" fill="#000"/>
+    <path d="M1132.848484848485 620 C 1132.848484848485 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1150.909090909091" y1="245" x2="1150.909090909091" y2="556.7647058823529" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1150.909090909091" y1="556.7647058823529" x2="1150.909090909091" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1150.909090909091" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1150.909090909091" cy="556.7647058823529" r="5.5" fill="#000"/>
+    <path d="M1150.909090909091 620 C 1150.909090909091 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1168.969696969697" y1="245" x2="1168.969696969697" y2="496.4705882352941" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1168.969696969697" y1="496.4705882352941" x2="1168.969696969697" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1168.969696969697" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1168.969696969697" cy="496.4705882352941" r="5.5" fill="#000"/>
+    <path d="M1168.969696969697 620 C 1168.969696969697 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1187.030303030303" y1="245" x2="1187.030303030303" y2="599.4117647058823" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1187.030303030303" y1="599.4117647058823" x2="1187.030303030303" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1187.030303030303" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1187.030303030303" cy="599.4117647058823" r="5.5" fill="#000"/>
+    <path d="M1187.030303030303 620 C 1187.030303030303 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1205.090909090909" y1="245" x2="1205.090909090909" y2="343.52941176470586" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1205.090909090909" y1="343.52941176470586" x2="1205.090909090909" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1205.090909090909" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1205.090909090909" cy="343.52941176470586" r="5.5" fill="#000"/>
+    <path d="M1205.090909090909 620 C 1205.090909090909 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1223.1515151515152" y1="245" x2="1223.1515151515152" y2="500.88235294117646" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1223.1515151515152" y1="500.88235294117646" x2="1223.1515151515152" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1223.1515151515152" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1223.1515151515152" cy="500.88235294117646" r="5.5" fill="#000"/>
+    <path d="M1223.1515151515152 620 C 1223.1515151515152 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1241.2121212121212" y1="245" x2="1241.2121212121212" y2="555.2941176470588" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1241.2121212121212" y1="555.2941176470588" x2="1241.2121212121212" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1241.2121212121212" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1241.2121212121212" cy="555.2941176470588" r="5.5" fill="#000"/>
+    <path d="M1241.2121212121212 620 C 1241.2121212121212 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1259.2727272727273" y1="245" x2="1259.2727272727273" y2="570" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1259.2727272727273" y1="570" x2="1259.2727272727273" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1259.2727272727273" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1259.2727272727273" cy="570" r="5.5" fill="#000"/>
+    <path d="M1259.2727272727273 620 C 1259.2727272727273 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1277.3333333333335" y1="245" x2="1277.3333333333335" y2="581.7647058823529" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1277.3333333333335" y1="581.7647058823529" x2="1277.3333333333335" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1277.3333333333335" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1277.3333333333335" cy="581.7647058823529" r="5.5" fill="#000"/>
+    <path d="M1277.3333333333335 620 C 1277.3333333333335 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1295.3939393939395" y1="245" x2="1295.3939393939395" y2="406.7647058823529" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1295.3939393939395" y1="406.7647058823529" x2="1295.3939393939395" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1295.3939393939395" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1295.3939393939395" cy="406.7647058823529" r="5.5" fill="#000"/>
+    <path d="M1295.3939393939395 620 C 1295.3939393939395 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1313.4545454545455" y1="245" x2="1313.4545454545455" y2="520" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1313.4545454545455" y1="520" x2="1313.4545454545455" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1313.4545454545455" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1313.4545454545455" cy="520" r="5.5" fill="#000"/>
+    <path d="M1313.4545454545455 620 C 1313.4545454545455 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1331.5151515151515" y1="245" x2="1331.5151515151515" y2="467.05882352941177" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1331.5151515151515" y1="467.05882352941177" x2="1331.5151515151515" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1331.5151515151515" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1331.5151515151515" cy="467.05882352941177" r="5.5" fill="#000"/>
+    <path d="M1331.5151515151515 620 C 1331.5151515151515 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1349.5757575757575" y1="245" x2="1349.5757575757575" y2="595" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1349.5757575757575" y1="595" x2="1349.5757575757575" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1349.5757575757575" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1349.5757575757575" cy="595" r="5.5" fill="#000"/>
+    <path d="M1349.5757575757575 620 C 1349.5757575757575 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1367.6363636363637" y1="245" x2="1367.6363636363637" y2="593.5294117647059" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1367.6363636363637" y1="593.5294117647059" x2="1367.6363636363637" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1367.6363636363637" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1367.6363636363637" cy="593.5294117647059" r="5.5" fill="#000"/>
+    <path d="M1367.6363636363637 620 C 1367.6363636363637 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1385.6969696969697" y1="245" x2="1385.6969696969697" y2="456.7647058823529" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1385.6969696969697" y1="456.7647058823529" x2="1385.6969696969697" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1385.6969696969697" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1385.6969696969697" cy="456.7647058823529" r="5.5" fill="#000"/>
+    <path d="M1385.6969696969697 620 C 1385.6969696969697 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1403.7575757575758" y1="245" x2="1403.7575757575758" y2="572.9411764705883" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1403.7575757575758" y1="572.9411764705883" x2="1403.7575757575758" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1403.7575757575758" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1403.7575757575758" cy="572.9411764705883" r="5.5" fill="#000"/>
+    <path d="M1403.7575757575758 620 C 1403.7575757575758 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1421.818181818182" y1="245" x2="1421.818181818182" y2="309.70588235294116" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1421.818181818182" y1="309.70588235294116" x2="1421.818181818182" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1421.818181818182" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1421.818181818182" cy="309.70588235294116" r="5.5" fill="#000"/>
+    <path d="M1421.818181818182 620 C 1421.818181818182 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1439.878787878788" y1="245" x2="1439.878787878788" y2="290.5882352941176" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1439.878787878788" y1="290.5882352941176" x2="1439.878787878788" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1439.878787878788" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1439.878787878788" cy="290.5882352941176" r="5.5" fill="#000"/>
+    <path d="M1439.878787878788 620 C 1439.878787878788 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1471.939393939394" y1="245" x2="1471.939393939394" y2="262.6470588235294" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1471.939393939394" y1="262.6470588235294" x2="1471.939393939394" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1471.939393939394" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1471.939393939394" cy="262.6470588235294" r="5.5" fill="#000"/>
+    <path d="M1471.939393939394 620 C 1471.939393939394 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+    <line x1="1490" y1="245" x2="1490" y2="442.05882352941177" stroke="#d9d9d9" stroke-width="1.5" stroke-dasharray="2 5"/>
+    <line x1="1490" y1="442.05882352941177" x2="1490" y2="620" stroke="#000" stroke-width="1.5"/>
+    <circle cx="1490" cy="245" r="2.5" fill="#d9d9d9"/>
+    <circle cx="1490" cy="442.05882352941177" r="5.5" fill="#000"/>
+    <path d="M1490 620 C 1490 665, 1185 650, 1185 682" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+  <g transform="translate(1159 674) scale(1.75)"><circle cx="15" cy="15" r="8.5" fill="none" stroke="#000" stroke-width="1.8"/><path d="M18.6 18.6l5.4 5.4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="15" r="2.2" fill="#000"/></g>
+  <text x="880" y="225" font-family="JetBrains Mono" font-weight="500" font-size="15" letter-spacing="2" fill="#7a7a7a">SECRET</text>
+  <text x="1490" y="760" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="15" letter-spacing="2" fill="#7a7a7a">VAULT = HASH(34 ENDS)</text>
+  <line x1="100" y1="790" x2="1500" y2="790" stroke="#d9d9d9"/>
+  <text x="104" y="842" font-family="Instrument Serif" font-style="italic" font-size="36" fill="#000">Fig. 2 — one signature, drawn.</text>
+  <text x="1500" y="842" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="24" fill="#000">qault.xyz · live on devnet</text></svg>
