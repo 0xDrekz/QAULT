@@ -1,0 +1,29 @@
+[package]
+name = "qault-vault"
+version = "0.1.0"
+edition = "2021"
+description = "QAULT vault: SOL held behind one-time Winternitz (hash-based, quantum-resistant) keys"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[features]
+no-entrypoint = []
+
+[dependencies]
+solana-program = "4"
+solana-keccak-hasher = { version = "3.1.0", features = ["sha3"] }
+solana-system-interface = { version = "3.3.0", features = ["bincode"] }
+
+[dev-dependencies]
+litesvm = "0.17.0"
+solana-keypair = "3"
+solana-signer = "3"
+solana-transaction = "4"
+solana-message = "4"
+solana-instruction = "3"
+solana-compute-budget-interface = "3"
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }

@@ -20,6 +20,10 @@ const og = require("./og");
 const PORT    = process.env.PORT || 3000;
 const ROOT    = path.join(__dirname, "public");
 const RPC_URL = process.env.RPC_URL || "https://api.mainnet-beta.solana.com";
+/* The vault runs on devnet for now. DEVNET_RPC_URL if set; otherwise the
+   Helius devnet endpoint with the same key as RPC_URL; otherwise public. */
+const DEVNET_URL = process.env.DEVNET_RPC_URL
+  || (/helius-rpc\.com/.test(RPC_URL) ? RPC_URL.replace("mainnet.helius-rpc.com", "devnet.helius-rpc.com") : "https://api.devnet.solana.com");
 const PRICE   = "https://lite-api.jup.ag/price/v3?ids=";
 const NAMES   = "https://lite-api.jup.ag/tokens/v2/search?query=";
 
@@ -288,6 +292,54 @@ async function api(req, res, url) {
   }
 }
 
+/* ---------- the vault's devnet RPC ----------
+   The page talks to Solana through here so the RPC key stays on the
+   server. Only the calls the vault makes are passed on, each caller gets a
+   generous ceiling (the page polls while waiting for confirmations), and
+   airdrops — which spend the faucet — get a tight one of their own. */
+
+const DEVNET_METHODS = new Set([
+  "getLatestBlockhash", "sendTransaction", "simulateTransaction", "getSignatureStatuses",
+  "getMultipleAccounts", "getAccountInfo", "getBalance", "getSignaturesForAddress", "requestAirdrop"
+]);
+const devnetHits = new Map(), airdropHits = new Map();
+
+function under(map, ip, limit, windowMs) {
+  const now = Date.now();
+  const h = (map.get(ip) || []).filter(t => now - t < windowMs);
+  h.push(now);
+  map.set(ip, h);
+  if (map.size > 5000) map.clear();
+  return h.length <= limit;
+}
+
+function devnet(req, res) {
+  const ip = ipOf(req);
+  if (req.method !== "POST") return send(res, 405, JSON.stringify({ error: { message: "POST only" } }));
+  let body = "";
+  req.on("data", c => { body += c; if (body.length > 64_000) req.destroy(); });
+  req.on("end", async () => {
+    let call;
+    try { call = JSON.parse(body); } catch { return send(res, 400, JSON.stringify({ error: { message: "bad JSON" } })); }
+    if (!call || !DEVNET_METHODS.has(call.method) || !Array.isArray(call.params ?? []))
+      return send(res, 400, JSON.stringify({ error: { message: "method not allowed" } }));
+    if (!under(devnetHits, ip, 300, 60_000))
+      return send(res, 429, JSON.stringify({ error: { message: "Too many requests — slow down a little." } }));
+    if (call.method === "requestAirdrop") {
+      if (!under(airdropHits, ip, 5, 60 * 60_000))
+        return send(res, 429, JSON.stringify({ error: { message: "Airdrop limit reached — try again in an hour, or use faucet.solana.com." } }));
+      // the faucet hands out at most 1 SOL a time
+      call.params[1] = Math.min(Number(call.params[1]) || 0, 1_000_000_000);
+    }
+    try {
+      const j = await post(DEVNET_URL, { jsonrpc: "2.0", id: call.id ?? 1, method: call.method, params: call.params ?? [] });
+      send(res, 200, JSON.stringify(j));
+    } catch (e) {
+      send(res, 502, JSON.stringify({ error: { message: "Devnet didn't answer in time. Try again." } }));
+    }
+  });
+}
+
 /* ---------- share cards ----------
    /og.png is the home page's card; /og/<address>.png is a result's.
    Rendered cards are kept for ten minutes: when a link goes round, every
@@ -332,6 +384,7 @@ async function card(req, res, address) {
 /* The page, with share tags filled in. A link to /?a=<address> gets that
    address's card, so the picture in the post is the result itself. */
 const PAGE = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+const VAULT_PAGE = fs.readFileSync(path.join(ROOT, "vault", "index.html"), "utf8");
 
 function page(req, res, url) {
   const origin = publicHost(req);
@@ -370,11 +423,17 @@ if (require.main === module) {
   http.createServer((req, res) => {
     const url = new URL(req.url, "http://x");
     if (url.pathname === "/api/check") return api(req, res, url);
+    if (url.pathname === "/api/devnet") return devnet(req, res);
     if (req.method !== "GET" && req.method !== "HEAD") return send(res, 405, "Method not allowed", "text/plain");
     if (url.pathname === "/" || url.pathname === "/index.html") return page(req, res, url);
     if (url.pathname === "/og.png") return card(req, res, null);
     const m = url.pathname.match(/^\/og\/([1-9A-HJ-NP-Za-km-z]{32,44})\.png$/);
     if (m) return card(req, res, m[1]);
+    if (url.pathname === "/vault" || url.pathname === "/vault/" || url.pathname === "/vault/index.html") {
+      // share tags need absolute URLs
+      const html = VAULT_PAGE.replace('content="/og.png"', `content="${publicHost(req)}/og.png"`);
+      return send(res, 200, html, TYPES[".html"], { "Cache-Control": "no-cache" });
+    }
     file(res, url.pathname);
   }).listen(PORT, () => console.log(`QAULT on :${PORT} — RPC ${RPC_URL.replace(/api-key=[^&]+/, "api-key=…")}`));
 }

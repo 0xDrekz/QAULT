@@ -1,8 +1,11 @@
 # QAULT
 
-Quantum-resistant storage for Solana. This repository starts with the
-**exposure checker**: paste any Solana address and see how exposed it is to
-a future quantum computer.
+Quantum-resistant storage for Solana — *the quantum vault*.
+
+- **Exposure checker** (`/`): paste any Solana address and see how exposed it
+  is to a future quantum computer.
+- **QAULT Vault** (`/vault`, devnet): SOL held behind one-time hash-based
+  (Winternitz) keys, with automatic key rotation on every spend.
 
 No wallet connection, no signing, no build step. One dependency
 (`@resvg/resvg-js`, for drawing share cards).
@@ -93,10 +96,69 @@ for reading Solana accounts and transactions. It reads the key from the
 (locally, or in the cloud environment's settings). The key never goes in
 the repo.
 
+## The vault
+
+```
+program/            the on-chain program (Rust)
+  src/wots.rs       Winternitz one-time signatures
+  src/lib.rs        the Withdraw instruction
+  tests/vault.rs    the compiled program in LiteSVM: payments, rotation, theft attempts
+  examples/vectors.rs   test vectors for the browser client
+public/vault/       the wallet page
+  wots.js           the same Winternitz scheme in JavaScript
+  solana.js         addresses, PDAs, transactions, RPC — no SDK
+  wallet.js         phrase → fuel key + vaults; scan, sign, send
+  crypto.js         bundled noble/scure libraries (tools/build-crypto.sh)
+```
+
+**How a vault works.** A vault is a program derived address,
+`["vault", keccak(one-time public key)]`. No Ed25519 key exists for it, so
+its SOL can only move through the program, and only for a valid Winternitz
+signature. Depositing is an ordinary transfer to that address.
+
+**Spending.** The browser signs `(program, vault, to, refund, amount, nonce)`
+with the vault's one-time key. The program rebuilds the public key from the
+signature, checks it hashes to the vault, pays `amount` to `to` and moves
+everything else to `refund` — the next vault, with a fresh key. The fee
+payer ("fuel key") is an ordinary key with no power over the funds: the
+signature fixes where every lamport goes.
+
+**Parameters.** Keccak-256 truncated to 24 bytes (≈2^96 quantum preimage
+work); 34 chains of length 255 (32 digest bytes + a 2-byte checksum); every
+hash tagged with a per-key salt, the chain and the step. A signature is 816
+bytes; a withdraw transaction is 1,180 bytes (limit 1,232). The signer
+picks a nonce so the verifier does at most 3,700 hashes (~550k compute
+units; a typical send uses ~450–530k).
+
+**Keys.** A 24-word BIP-39 phrase gives the 32-byte seed. Vault *n*'s key
+and salt are derived from the seed and *n*; the fuel key from the seed too.
+Restoring walks vaults from 0 until it reaches one never used.
+
+**A key signs once.** The signature covers the payment, not the blockhash,
+so a payment that didn't land is resent with the same signature. The page
+keeps the signed payment until it confirms and won't sign a different one
+from the same vault unless told to.
+
+**Devnet.** Program `FFLcbagW5VPNhbnnD2cvGVWM8XSmfouoXAv3xds3Bkzy`. The
+page reaches devnet through `/api/devnet` (an allowlist of the calls it
+makes); set `DEVNET_RPC_URL`, or it uses Helius devnet with `RPC_URL`'s key.
+
+Build and test:
+
+```
+cd program
+cargo build-sbf          # needs the Solana (Agave) toolchain
+cargo test               # unit tests + the compiled program in LiteSVM
+cd .. && npm test        # includes browser-vs-Rust vectors
+```
+
+**Not yet:** an independent audit, SPL tokens, hardware-wallet or
+encrypted storage for the phrase (it sits in browser storage on devnet).
+
 ## Roadmap
 
 1. **Exposure checker** — this.
-2. **QAULT Vault on devnet** — hash-based (Winternitz) one-time-signature
+2. **QAULT Vault on devnet** — done: hash-based (Winternitz) one-time-signature
    vault with automatic key rotation, so it feels like a normal wallet.
 3. Our own on-chain program with token support and a migration path to
    Solana's native post-quantum signatures, then an independent audit.
