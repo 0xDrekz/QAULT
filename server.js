@@ -21,9 +21,12 @@ const PORT    = process.env.PORT || 3000;
 const ROOT    = path.join(__dirname, "public");
 /* RPC_URL may be a whole URL, or just a Helius key pasted on its own. */
 const RPC_RAW = (process.env.RPC_URL || "").trim().replace(/^["']|["']$/g, "");
+// a Helius key is a UUID; take the last one in the value, so a URL pasted
+// twice ("…?api-key=https://…?api-key=KEY") still works
+const HELIUS_KEY = (RPC_RAW.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi) || []).pop();
 const RPC_URL = !RPC_RAW ? "https://api.mainnet-beta.solana.com"
-  : /^https?:\/\//.test(RPC_RAW) ? RPC_RAW
-  : `https://mainnet.helius-rpc.com/?api-key=${(RPC_RAW.match(/api-key=([A-Za-z0-9-]+)/) || [, RPC_RAW])[1]}`;
+  : HELIUS_KEY && (/helius/i.test(RPC_RAW) || !/^https?:\/\//.test(RPC_RAW)) ? `https://mainnet.helius-rpc.com/?api-key=${HELIUS_KEY}`
+  : RPC_RAW;
 /* The vault runs on devnet for now. DEVNET_RPC_URL if set; otherwise the
    Helius devnet endpoint with the same key as RPC_URL; otherwise public. */
 const DEVNET_URL = process.env.DEVNET_RPC_URL
