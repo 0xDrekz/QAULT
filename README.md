@@ -7,6 +7,8 @@ Quantum-resistant storage for Solana — *the quantum vault*.
 - **QAULT Vault** (`/vault`, devnet): SOL held behind one-time hash-based
   (Winternitz) keys, with automatic key rotation on every spend.
 
+Live at [qault.xyz](https://qault.xyz) · Contact: Qault_Safe@proton.me
+
 No wallet connection, no signing, no build step. One dependency
 (`@resvg/resvg-js`, for drawing share cards).
 

@@ -1,7 +1,8 @@
 # QAULT Vault — audit brief
 
-Everything an auditor needs to scope, quote and start. Questions:
-the repository owner (GitHub: `6tmv47v6fq-collab`).
+Everything an auditor needs to scope, quote and start.
+
+Contact: **Qault_Safe@proton.me** · Code: [github.com/0xDrekz/QAULT](https://github.com/0xDrekz/QAULT) · Site: [qault.xyz](https://qault.xyz)
 
 ## 1. What it is
 
