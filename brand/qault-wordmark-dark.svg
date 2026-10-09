@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 160"><rect width="496" height="160" fill="#121312"/>
+  <g transform="translate(56 34) scale(3)">
+  <circle cx="15" cy="15" r="8.5" fill="none" stroke="#8cc4ab" stroke-width="1.8"/>
+  <path d="M18.6 18.6l5.4 5.4" stroke="#d2b072" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="15" cy="15" r="2.2" fill="#8cc4ab"/></g>
+  <text x="168" y="101" font-family="Inter" font-weight="600" font-size="58" letter-spacing="18" fill="#ecebe6">QAULT</text></svg>
