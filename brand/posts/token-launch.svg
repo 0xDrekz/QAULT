@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#fff"/>
+  <g transform="translate(100 90) scale(2.2)"><circle cx="15" cy="15" r="8.5" fill="none" stroke="#000" stroke-width="1.8"/><path d="M18.6 18.6l5.4 5.4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="15" r="2.2" fill="#000"/></g><text x="180" y="138" font-family="Inter" font-weight="600" font-size="28" letter-spacing="10" fill="#000">QAULT</text>
+  <text x="1500" y="138" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="22" letter-spacing="4" fill="#7a7a7a">SOLANA · PUMP.FUN</text>
+  <line x1="100" y1="190" x2="1500" y2="190" stroke="#d9d9d9"/>
+  <text x="96" y="380" font-family="Instrument Serif" font-size="210" letter-spacing="-4" fill="#000">$QAULT</text>
+  <text x="104" y="515" font-family="Instrument Serif" font-style="italic" font-size="64" fill="#000">is live.</text>
+  <line x1="100" y1="560" x2="1500" y2="560" stroke="#d9d9d9"/>
+  <text x="104" y="640" font-family="JetBrains Mono" font-weight="500" font-size="20" letter-spacing="4" fill="#7a7a7a">SUPPLY</text><text x="104" y="684" font-family="Inter" font-weight="600" font-size="32" fill="#000">1,000,000,000 fixed</text><text x="560" y="640" font-family="JetBrains Mono" font-weight="500" font-size="20" letter-spacing="4" fill="#7a7a7a">MINT AUTHORITY</text><text x="560" y="684" font-family="Inter" font-weight="600" font-size="32" fill="#000">Revoked</text><text x="960" y="640" font-family="JetBrains Mono" font-weight="500" font-size="20" letter-spacing="4" fill="#7a7a7a">FREEZE AUTHORITY</text><text x="960" y="684" font-family="Inter" font-weight="600" font-size="32" fill="#000">Revoked</text>
+  <line x1="100" y1="740" x2="1500" y2="740" stroke="#d9d9d9"/>
+  <text x="104" y="798" font-family="JetBrains Mono" font-weight="500" font-size="20" letter-spacing="4" fill="#7a7a7a">CA</text>
+  <text x="160" y="800" font-family="JetBrains Mono" font-weight="500" font-size="30" fill="#000">EVScZWpSq7t6Qqje4UBXgH4PZrfTgoS11QV2gwyFpump</text>
+  <text x="1500" y="800" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="30" fill="#000">qault.xyz</text></svg>
