@@ -139,7 +139,10 @@ so a payment that didn't land is resent with the same signature. The page
 keeps the signed payment until it confirms and won't sign a different one
 from the same vault unless told to.
 
-**Devnet.** Program `FFLcbagW5VPNhbnnD2cvGVWM8XSmfouoXAv3xds3Bkzy`. The
+**Devnet.** Program `FFLcbagW5VPNhbnnD2cvGVWM8XSmfouoXAv3xds3Bkzy`, upgrade
+authority `3zwsA5ERpCKNU4ZLSRLGHsDJjpKfNSKTWRH72Dr54jcF` (the owner's wallet).
+To ship a new build, that wallet signs the upgrade
+(`solana program deploy --program-id FFLc… --upgrade-authority <wallet>`). The
 page reaches devnet through `/api/devnet` (an allowlist of the calls it
 makes); set `DEVNET_RPC_URL`, or it uses Helius devnet with `RPC_URL`'s key.
 
