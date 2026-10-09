@@ -93,9 +93,8 @@ const HISTORY_PAGES = 5;
    airdropped dust. Beyond this many, the rest are counted but not priced. */
 const MAX_PRICED = 2000;
 
-/* Wallets get airdropped spam tokens with made-up prices, which turned one
-   exchange wallet's ~$250M into $1.6B. A price only counts if the token has
-   real liquidity behind it. */
+/* Wallets get airdropped spam tokens, some with made-up prices. A price
+   only counts if the token has real liquidity behind it. */
 const MIN_LIQUIDITY = 10_000;
 
 /* History is a nice-to-have: if the RPC gives out part way, report what

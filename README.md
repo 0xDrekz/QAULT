@@ -76,7 +76,8 @@ npm test
 2. Set **`RPC_URL`** in Railway's variables to a Helius / Triton / QuickNode
    URL (key included). Never commit it.
    Without it the server falls back to Solana's public RPC, which works but
-   is rate-limited — busy wallets will show partial history.
+   is rate-limited and can leave token accounts out of very large wallets
+   (it dropped ~$1.3B of USDC/USDT from one exchange wallet in testing).
 3. Once it has its own domain, set **`PUBLIC_URL`** (e.g. `https://qault.xyz`)
    so share links and cards always point at it.
 
