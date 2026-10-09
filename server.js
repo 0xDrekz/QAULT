@@ -19,7 +19,11 @@ const og = require("./og");
 
 const PORT    = process.env.PORT || 3000;
 const ROOT    = path.join(__dirname, "public");
-const RPC_URL = process.env.RPC_URL || "https://api.mainnet-beta.solana.com";
+/* RPC_URL may be a whole URL, or just a Helius key pasted on its own. */
+const RPC_RAW = (process.env.RPC_URL || "").trim().replace(/^["']|["']$/g, "");
+const RPC_URL = !RPC_RAW ? "https://api.mainnet-beta.solana.com"
+  : /^https?:\/\//.test(RPC_RAW) ? RPC_RAW
+  : `https://mainnet.helius-rpc.com/?api-key=${(RPC_RAW.match(/api-key=([A-Za-z0-9-]+)/) || [, RPC_RAW])[1]}`;
 /* The vault runs on devnet for now. DEVNET_RPC_URL if set; otherwise the
    Helius devnet endpoint with the same key as RPC_URL; otherwise public. */
 const DEVNET_URL = process.env.DEVNET_RPC_URL
@@ -347,6 +351,19 @@ function devnet(req, res) {
   });
 }
 
+/* ---------- health ----------
+   Whether each RPC answers, and which kind it is. Never the key. */
+async function health(res) {
+  const probe = async u => {
+    try { const j = await post(u, { jsonrpc: "2.0", id: 1, method: "getHealth" }); return j.result === "ok" ? "ok" : (j.error?.message || "unexpected answer"); }
+    catch (e) { return e.message; }
+  };
+  const kind = u => /helius/.test(u) ? "helius" : /api\.(mainnet-beta|devnet)\.solana\.com/.test(u) ? "public" : "custom";
+  const [mainnet, dev] = await Promise.all([probe(RPC_URL), probe(DEVNET_URL)]);
+  const ok = mainnet === "ok" && dev === "ok";
+  send(res, ok ? 200 : 503, JSON.stringify({ ok, mainnet: { kind: kind(RPC_URL), status: mainnet }, devnet: { kind: kind(DEVNET_URL), status: dev }, publicUrl: process.env.PUBLIC_URL || null }));
+}
+
 /* ---------- share cards ----------
    /og.png is the home page's card; /og/<address>.png is a result's.
    Rendered cards are kept for ten minutes: when a link goes round, every
@@ -434,6 +451,7 @@ if (require.main === module) {
     const url = new URL(req.url, "http://x");
     if (url.pathname === "/api/check") return api(req, res, url);
     if (url.pathname === "/api/devnet") return devnet(req, res);
+    if (url.pathname === "/api/health") return health(res);
     if (req.method !== "GET" && req.method !== "HEAD") return send(res, 405, "Method not allowed", "text/plain");
     if (url.pathname === "/" || url.pathname === "/index.html") return page(req, res, url);
     if (url.pathname === "/og.png") return card(req, res, null);
