@@ -361,7 +361,9 @@ async function health(res) {
   const kind = u => /helius/.test(u) ? "helius" : /api\.(mainnet-beta|devnet)\.solana\.com/.test(u) ? "public" : "custom";
   const [mainnet, dev] = await Promise.all([probe(RPC_URL), probe(DEVNET_URL)]);
   const ok = mainnet === "ok" && dev === "ok";
-  send(res, ok ? 200 : 503, JSON.stringify({ ok, mainnet: { kind: kind(RPC_URL), status: mainnet }, devnet: { kind: kind(DEVNET_URL), status: dev }, publicUrl: process.env.PUBLIC_URL || null }));
+  // the key's first 4 characters, so the owner can tell which key is in use
+  const keyStart = u => ((u.match(/api-key=([A-Za-z0-9-]+)/) || [])[1] || "").slice(0, 4) || null;
+  send(res, ok ? 200 : 503, JSON.stringify({ ok, mainnet: { kind: kind(RPC_URL), keyStartsWith: keyStart(RPC_URL), status: mainnet }, devnet: { kind: kind(DEVNET_URL), status: dev }, publicUrl: process.env.PUBLIC_URL || null }));
 }
 
 /* ---------- share cards ----------
