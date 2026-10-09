@@ -161,3 +161,13 @@
   size();
   requestAnimationFrame(frame);
 })();
+
+/* copy the token contract address from the top bar */
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-copy-ca]");
+  if (!btn) return;
+  const ca = document.getElementById("ca").textContent.trim();
+  const done = () => { btn.textContent = "Copied"; setTimeout(() => (btn.textContent = "Copy"), 1600); };
+  if (navigator.clipboard) navigator.clipboard.writeText(ca).then(done, () => {});
+  else { const r = document.createRange(); r.selectNodeContents(document.getElementById("ca")); getSelection().removeAllRanges(); getSelection().addRange(r); }
+});
