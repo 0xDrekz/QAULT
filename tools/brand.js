@@ -25,6 +25,13 @@ const word = (bg, ring, text, handle) => `<svg xmlns="http://www.w3.org/2000/svg
   <text x="168" y="101" font-family="Inter" font-weight="600" font-size="58" letter-spacing="18" fill="${text}">QAULT</text></svg>`;
 save("qault-wordmark-light", word(PAPER, GREEN, INK, BRASS_D), 1240);
 save("qault-wordmark-dark", word("#121312", "#8cc4ab", "#ecebe6", BRASS), 1240);
+// 4b. monochrome: black on white
+const BLACK = "#000000", WHITE = "#ffffff";
+save("qault-mono-avatar", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="${WHITE}"/><g transform="translate(1.4 1.4)">${mark(1, BLACK, BLACK, BLACK)}</g></svg>`, 800);
+save("qault-mono-icon", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="${WHITE}"/>${mark(1, BLACK, BLACK, BLACK)}</svg>`, 1024);
+save("qault-mono-mark", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="${WHITE}"/>${mark(1, BLACK, BLACK, BLACK)}</svg>`, 1024);
+save("qault-mono-wordmark", word(WHITE, BLACK, BLACK, BLACK), 1240);
+
 // 5. X / Twitter banner 1500x500
 let chains = "", seed = 11; const r = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
 for (let i = 0; i < 30; i++) {
