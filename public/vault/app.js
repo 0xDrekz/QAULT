@@ -126,10 +126,6 @@ async function begin(phrase, { fresh }) {
   wallet = W.open(phrase);
   W.save(wallet);
   draft = null;
-  if (fresh) {
-    // a little test SOL for fees, so the first send just works
-    sol.airdrop(wallet.fuel.address, sol.LAMPORTS / 2).catch(() => {}).finally(() => refresh());
-  }
   await dashboard();
 }
 
@@ -174,6 +170,15 @@ function render() {
         <ul class="steps" id="resend-steps"></ul>
       </section>` : ""}
 
+      ${!current.lamports && list.length === 1 && W.movable(fuel) < sol.RENT_MIN ? `
+      <section class="panel">
+        <span class="tag-key">Step 1 of 2</span>
+        <h2 style="margin-top:10px">Add some test SOL</h2>
+        <p>Your vault is ready. Test SOL is free and has no value. One click fills your vault and keeps a little aside to pay network fees.</p>
+        <button class="btn" id="start-sol">Get test SOL <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="msg" id="start-msg"></p>
+      </section>` : ""}
+
       <div class="grid2">
         <section class="panel">
           <span class="tag-key">Vault #${current.index} · one-time key</span>
@@ -181,7 +186,7 @@ function render() {
           <div class="addr">${link("address", current.address, current.address)}</div>
           <div class="row">
             <button class="btn ghost small" id="copy">Copy address</button>
-            <button class="btn ghost small" id="faucet">Get 1 test SOL</button>
+            <button class="btn ghost small" id="faucet">Get test SOL</button>
             <button class="btn ghost small" id="reload">Refresh</button>
           </div>
           <p class="msg" id="vault-msg"></p>
@@ -221,7 +226,9 @@ function render() {
           <h2>Fuel key</h2>
           <p>Solana makes an ordinary key pay network fees. This one holds a little test SOL for that and has no power over your vault.</p>
           <div class="addr">${link("address", wallet.fuel.address, wallet.fuel.address)}</div>
-          <div class="row"><strong>${sol$(fuel)} SOL</strong><button class="btn ghost small" id="fuel-top">Top up</button></div>
+          <div class="row"><strong>${sol$(fuel)} SOL</strong>
+            ${W.movable(fuel) >= sol.RENT_MIN ? `<button class="btn small" id="fuel-move">Move ${sol$(W.movable(fuel))} SOL to vault</button>` : `<button class="btn ghost small" id="fuel-top">Get test SOL</button>`}
+          </div>
           <p class="msg" id="fuel-msg"></p>
         </section>
 
@@ -242,8 +249,10 @@ function render() {
   const $ = s => app.querySelector(s);
   $("#copy").onclick = async () => { try { await navigator.clipboard.writeText(current.address); $("#vault-msg").textContent = "Copied."; } catch { prompt("Copy:", current.address); } };
   $("#reload").onclick = () => refresh().catch(e => ($("#vault-msg").textContent = e.message));
-  $("#faucet").onclick = e => faucet(e.target, current.address, $("#vault-msg"));
-  $("#fuel-top").onclick = e => faucet(e.target, wallet.fuel.address, $("#fuel-msg"));
+  $("#faucet").onclick = e => testSol(e.target, $("#vault-msg"));
+  if ($("#fuel-top")) $("#fuel-top").onclick = e => testSol(e.target, $("#fuel-msg"));
+  if ($("#fuel-move")) $("#fuel-move").onclick = e => moveFuel(e.target, $("#fuel-msg"));
+  if ($("#start-sol")) $("#start-sol").onclick = e => testSol(e.target, $("#start-msg"));
   $("#max").onclick = () => { $("#amount").value = current.lamports / sol.LAMPORTS; };
   $("#send").onsubmit = e => { e.preventDefault(); send(); };
   $("#show-phrase").onclick = () => {
@@ -262,21 +271,39 @@ function render() {
   }
 }
 
-async function faucet(btn, address, out) {
+/* Test SOL in one trip: the faucet pays the fuel key, and the fuel key
+   keeps enough for fees and moves the rest into the vault. */
+async function testSol(btn, out) {
   btn.disabled = true;
   out.className = "msg";
   out.textContent = "Asking the devnet faucet…";
   try {
-    await sol.airdrop(address, sol.LAMPORTS);
-    out.className = "msg ok";
-    out.textContent = "1 test SOL arrived.";
-    await refresh();
+    await sol.airdrop(wallet.fuel.address, sol.LAMPORTS);
   } catch (e) {
     out.className = "msg err";
     out.innerHTML = /limit|429|dry/i.test(e.message)
-      ? `The devnet faucets are rate-limited right now. Get test SOL at <a href="https://faucet.solana.com" target="_blank" rel="noopener">faucet.solana.com</a> and paste this address (it's copied):<br><code>${esc(address)}</code>`
+      ? `The devnet faucets are rate-limited right now. Get test SOL at <a href="https://faucet.solana.com" target="_blank" rel="noopener">faucet.solana.com</a>, sent to this address (it's copied):<br><code>${esc(wallet.fuel.address)}</code><br>Then press <strong>Refresh</strong>, and <strong>Move to vault</strong>.`
       : esc(e.message);
-    try { await navigator.clipboard.writeText(address); } catch { /* fine */ }
+    try { await navigator.clipboard.writeText(wallet.fuel.address); } catch { /* fine */ }
+    btn.disabled = false;
+    return;
+  }
+  out.textContent = "Arrived. Moving it into your vault…";
+  await moveFuel(btn, out);
+}
+
+async function moveFuel(btn, out) {
+  btn.disabled = true;
+  out.className = "msg";
+  try {
+    const [fuel] = await sol.balances([wallet.fuel.address]);
+    const { amount } = await W.fuelToVault(wallet, state.current.address, fuel);
+    out.className = "msg ok";
+    out.textContent = `${sol$(amount)} SOL is in your vault. 0.02 SOL stays on the fuel key for fees.`;
+    setTimeout(() => refresh(), 1200);
+  } catch (e) {
+    out.className = "msg err";
+    out.textContent = e.message;
     btn.disabled = false;
   }
 }

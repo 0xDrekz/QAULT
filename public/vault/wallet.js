@@ -71,6 +71,21 @@ export async function scan(w) {
   return { list, current, next: vault(w, current.index + 1) };
 }
 
+/* ---------- test SOL ----------
+   One faucet trip: test SOL lands on the fuel key, which keeps enough for
+   thousands of sends and moves the rest into the vault. */
+
+export const FUEL_KEEP = 20_000_000;   // 0.02 SOL ≈ 4,000 sends at 5,000 lamports each
+
+export const movable = fuelLamports => Math.max(0, fuelLamports - FUEL_KEEP - 5_000);
+
+export async function fuelToVault(w, vaultAddress, fuelLamports) {
+  const amount = movable(fuelLamports);
+  if (amount < sol.RENT_MIN) throw new Error("The fuel key only holds enough for fees.");
+  const tx = sol.buildTransaction(w.fuel, [sol.transfer(w.fuel.address, vaultAddress, amount)], await sol.blockhash());
+  return { sig: await sol.sendAndConfirm(tx), amount };
+}
+
 /* ---------- sending ---------- */
 
 export function pending() { return store.get(PENDING); }
