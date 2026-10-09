@@ -1,6 +1,7 @@
 /* The share card: the picture X, Telegram and Discord show when someone
    posts a QAULT link. 1200 x 630, drawn as SVG and rendered to PNG with
-   resvg, using the same two fonts as the page (bundled in fonts/, OFL). */
+   resvg, using the page's fonts (bundled in fonts/, OFL): warm paper, deep
+   ink, a serif figure, and the hash-chain drawing from the home page. */
 
 const fs   = require("fs");
 const path = require("path");
@@ -16,9 +17,10 @@ const FONTS = fs.readdirSync(path.join(__dirname, "fonts"))
 const W = 1200, H = 630;
 
 const COLOR = {
-  shielded: "#6ef2a8", program: "#7cb8ff", empty: "#8c89a6",
-  low: "#f4e36a", medium: "#ffa94d", high: "#ff5d7a", none: "#7cf3ff"
+  shielded: "#2c7a56", program: "#3b6ea8", empty: "#8a8d93",
+  low: "#a8822a", medium: "#bd6128", high: "#a8352f", none: "#1f5140"
 };
+const PAPER = "#f5f2ec", INK = "#17191c", MUTED = "#6b6f76", LINE = "rgba(23,25,28,0.14)", GREEN = "#1f5140", BRASS = "#a8823f";
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
@@ -51,29 +53,38 @@ function rng(seed) {
   };
 }
 
-function field(seed) {
+/* The hash-chain drawing, in a panel on the right: one chain per digit,
+   a ringed node where the signature reveals it, the public key at the foot. */
+function chains(seed, x0, y0, w, h) {
   const r = rng(seed);
-  const pts = Array.from({ length: 46 }, () => {
-    const x = r() * W, y = r() * H;
-    return { x, y, x2: x + (r() - 0.5) * 70, y2: y + (r() - 0.5) * 70 };
-  });
+  const N = 22, NODES = 18;
   let s = "";
-  for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
-    const a = pts[i], b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-    if (d < 170) s += `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="#a98bff" stroke-opacity="${(0.16 * (1 - d / 170)).toFixed(3)}"/>`;
+  for (let i = 0; i < N; i++) {
+    const phase = r() * 6.28, amp = 0.4 + r() * 0.9, freq = 1.2 + r() * 1.6, sig = 3 + Math.floor(r() * (NODES - 6));
+    const pts = [];
+    for (let k = 0; k < NODES; k++) {
+      const u = k / (NODES - 1);
+      const base = x0 + (i / (N - 1)) * w;
+      pts.push([base + Math.sin(u * freq * Math.PI + phase) * amp * (w / N) * 1.3, y0 + u * h]);
+    }
+    s += `<polyline points="${pts.map(p => p.map(v => v.toFixed(1)).join(",")).join(" ")}" fill="none" stroke="${INK}" stroke-opacity="0.45" stroke-width="${i % 5 ? 1 : 1.4}"/>`;
+    for (const [x, y] of pts) s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.5" fill="${INK}" fill-opacity="0.35"/>`;
+    const [sx, sy] = pts[sig];
+    s += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="5" fill="none" stroke="${GREEN}" stroke-width="1.6"/>`;
+    const walk = pts[Math.min(NODES - 2, sig + 2 + Math.floor(r() * 5))];
+    s += `<circle cx="${walk[0].toFixed(1)}" cy="${walk[1].toFixed(1)}" r="3.2" fill="${BRASS}"/>`;
+    const [ex, ey] = pts[NODES - 1];
+    s += `<rect x="${(ex - 3.5).toFixed(1)}" y="${(ey - 3.5).toFixed(1)}" width="7" height="7" fill="${GREEN}"/>`;
   }
-  for (const p of pts) s +=
-    `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="2.4" fill="#7cf3ff" fill-opacity="0.55"/>` +
-    `<circle cx="${p.x2.toFixed(1)}" cy="${p.y2.toFixed(1)}" r="2.4" fill="#a98bff" fill-opacity="0.35"/>`;
   return s;
 }
 
 /* What the card says, from a check result (or nothing, for the home page). */
 function lines(r) {
   if (!r) return {
-    badge: "Exposure checker", big: "Q-Day", bigSize: 190,
-    sub: "Is your wallet ready?",
-    foot: "Paste any Solana address. See what's behind the lock.", level: "none"
+    badge: "Exposure checker", big: "Q-Day", bigSize: 160,
+    sub: "Check any Solana address.",
+    foot: "Read-only. No wallet, nothing to sign.", level: "none"
   };
   const h = r.history || {};
   const short = r.address.slice(0, 4) + "…" + r.address.slice(-4);
@@ -95,40 +106,32 @@ function lines(r) {
 function svg(r, host) {
   const L = lines(r);
   const c = COLOR[L.level];
-  const badgeW = 58 + L.badge.length * 15.4;
+  const italic = !r;                     // the home card's "Q-Day" is set in italic, like the page
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-  <defs>
-    <radialGradient id="glow" cx="0.85" cy="0.1" r="0.9">
-      <stop offset="0" stop-color="${c}" stop-opacity="0.16"/>
-      <stop offset="1" stop-color="${c}" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="brand" x1="0" x2="1"><stop offset="0" stop-color="#7cf3ff"/><stop offset="1" stop-color="#a98bff"/></linearGradient>
-  </defs>
-  <rect width="${W}" height="${H}" fill="#07060d"/>
-  <rect width="${W}" height="${H}" fill="url(#glow)"/>
-  ${field(r ? r.address : "qault")}
-  <rect width="${W}" height="8" fill="${c}"/>
+  <rect width="${W}" height="${H}" fill="${PAPER}"/>
+  <g>${chains(r ? r.address : "qault", 850, 96, 270, 380)}</g>
+  <line x1="820" y1="64" x2="820" y2="${H - 64}" stroke="${LINE}"/>
 
-  <g transform="translate(72 70)">
-    <circle cx="20" cy="20" r="15" fill="none" stroke="#7cf3ff" stroke-width="4"/>
-    <path d="M30 30l10 10" stroke="#a98bff" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="20" cy="20" r="4.5" fill="#7cf3ff"/>
-    <text x="62" y="32" font-family="JetBrains Mono" font-weight="500" font-size="32" letter-spacing="6" fill="#ecebf5">QAULT</text>
+  <g transform="translate(72 64)">
+    <circle cx="14" cy="14" r="12" fill="none" stroke="${GREEN}" stroke-width="2"/>
+    <path d="M23 23l7 7" stroke="${GREEN}" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="14" cy="14" r="3" fill="${GREEN}"/>
+    <text x="48" y="22" font-family="Inter" font-weight="600" font-size="20" letter-spacing="7" fill="${INK}">QAULT</text>
   </g>
 
-  <g transform="translate(${W - 72 - badgeW} 72)">
-    <rect width="${badgeW}" height="42" rx="21" fill="none" stroke="${c}" stroke-width="2"/>
-    <circle cx="22" cy="21" r="6" fill="${c}"/>
-    <text x="38" y="29" font-family="JetBrains Mono" font-weight="500" font-size="22" letter-spacing="2" fill="${c}">${esc(L.badge.toUpperCase())}</text>
+  <g transform="translate(72 150)">
+    <circle cx="5" cy="-7" r="5" fill="${c}"/>
+    <text x="20" y="0" font-family="JetBrains Mono" font-weight="500" font-size="20" letter-spacing="3" fill="${c}">${esc(L.badge.toUpperCase())}</text>
   </g>
 
-  <text x="68" y="${r ? 340 : 350}" font-family="Space Grotesk" font-weight="700" font-size="${L.bigSize}" letter-spacing="-4" fill="${r ? c : "url(#brand)"}">${esc(L.big)}</text>
-  <text x="72" y="${r ? 412 : 425}" font-family="Space Grotesk" font-weight="500" font-size="50" fill="#ecebf5">${esc(L.sub)}</text>
-  <text x="72" y="478" font-family="JetBrains Mono" font-weight="500" font-size="26" fill="#9b97b5">${esc(L.foot)}</text>
+  <text x="66" y="${r ? 330 : 312}" font-family="Instrument Serif" ${italic ? 'font-style="italic"' : ""} font-size="${Math.round(L.bigSize * 0.95)}" letter-spacing="-3" fill="${r ? c : GREEN}">${esc(L.big)}</text>
+  <text x="72" y="${r ? 396 : 400}" font-family="Instrument Serif" font-size="50" fill="${INK}">${esc(L.sub)}</text>
+  <text x="72" y="452" font-family="JetBrains Mono" font-weight="500" font-size="21" fill="${MUTED}">${esc(L.foot)}</text>
 
-  <line x1="72" y1="530" x2="${W - 72}" y2="530" stroke="#a98bff" stroke-opacity="0.2"/>
-  <text x="72" y="578" font-family="Space Grotesk" font-weight="500" font-size="28" fill="#ecebf5">Is your wallet ready for Q-Day?</text>
-  <text x="${W - 72}" y="578" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="24" fill="#7cf3ff">${esc(host || "")}</text>
+  <line x1="72" y1="${H - 98}" x2="760" y2="${H - 98}" stroke="${LINE}"/>
+  <text x="72" y="${H - 58}" font-family="Inter" font-weight="500" font-size="24" fill="${INK}">Is your wallet ready for Q-Day?</text>
+  <text x="${W - 72}" y="${H - 58}" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="19" fill="${GREEN}">${esc(host || "")}</text>
+  <text x="850" y="${H - 98}" font-family="JetBrains Mono" font-size="13" fill="${MUTED}">Fig. 1: hash chains of a one-time key</text>
 </svg>`;
 }
 
@@ -136,7 +139,7 @@ function svg(r, host) {
 function png(r, host) {
   if (!Resvg) return null;
   return new Resvg(svg(r, host), {
-    font: { fontFiles: FONTS, loadSystemFonts: false, defaultFontFamily: "Space Grotesk" },
+    font: { fontFiles: FONTS, loadSystemFonts: false, defaultFontFamily: "Inter" },
     fitTo: { mode: "width", value: W }
   }).render().asPng();
 }

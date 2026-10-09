@@ -23,11 +23,11 @@ let state = null;   // the last scan
 function welcome() {
   app.innerHTML = `
     <section class="v-hero">
-      <p class="eyebrow">QAULT Vault · devnet</p>
-      <h1>A vault quantum computers <span class="q">can't open</span>.</h1>
-      <p class="lede">Normal wallets are locked with a key a future quantum computer could work out. A QAULT vault is locked with a <em>one-time hash-based key</em>, maths quantum computers are bad at. Every time you spend, your funds move to a fresh vault with a fresh key. You won't notice: you'll just see a balance and a send button.</p>
-      <div class="row">
-        <button class="btn" data-go="create">Create a vault</button>
+      <p class="eyebrow fade-in" style="--d:.05s">QAULT Vault · devnet</p>
+      <h1 class="fade-in" style="--d:.15s">A vault quantum computers <em>can't open.</em></h1>
+      <p class="lede fade-in" style="--d:.35s">Normal wallets are locked with a key a future quantum computer could work out. A QAULT vault is locked with a <em>one-time hash-based key</em>, maths quantum computers are bad at. Every time you spend, your funds move to a fresh vault with a fresh key. You won't notice: you'll just see a balance and a send button.</p>
+      <div class="row fade-in" style="--d:.5s">
+        <button class="btn" data-go="create">Create a vault <span class="arrow" aria-hidden="true">→</span></button>
         <button class="btn ghost" data-go="restore">Restore from recovery phrase</button>
       </div>
     </section>

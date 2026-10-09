@@ -9,23 +9,23 @@
   <meta property="og:description" content="Try it on devnet: a vault secured by one-time hash-based keys.">
   <meta property="og:image" content="/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#07060d">
+  <meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121312" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/vault/vault.css">
 </head>
 <body>
-  <canvas id="field" aria-hidden="true"></canvas>
 
   <header class="top">
     <a class="mark" href="/" aria-label="QAULT home">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M20 20l6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="currentColor"/></svg>
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M20.5 20.5l6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="16" cy="16" r="2.6" fill="currentColor"/></svg>
       QAULT
     </a>
-    <nav class="nav"><a href="/">Checker</a><a href="/vault" aria-current="page">Vault</a></nav>
+    <nav class="nav"><a href="/">Checker</a><a href="/vault" aria-current="page">Vault <small>devnet</small></a></nav>
   </header>
 
   <div class="devnet" role="note">
@@ -40,7 +40,7 @@
     <p>Your recovery phrase is generated and kept in this browser. It never leaves your device, and QAULT's server never sees it. Program <a id="program-link" href="#" target="_blank" rel="noopener"></a> on devnet.</p>
   </footer>
 
-  <script src="/field.js"></script>
+  <script src="/motion.js"></script>
   <script type="module" src="/vault/app.js"></script>
 </body>
 </html>

@@ -104,6 +104,9 @@ function render(r) {
       <a href="https://x.com/intent/post?text=${encodeURIComponent(tweet)}&url=${encodeURIComponent(link)}" target="_blank" rel="noopener">Post on X</a>
     </div>`;
 
+  const big = out.querySelector(".big");
+  if (big && window.qaultMotion) window.qaultMotion.countUp(big, r.usd, usd);
+
   $("#copy").onclick = async e => {
     try { await navigator.clipboard.writeText(link); e.target.textContent = "Copied"; }
     catch { prompt("Copy this link:", link); }
@@ -115,7 +118,7 @@ async function run(address) {
   if (!address) return;
   out.hidden = false;
   delete out.dataset.level;
-  out.innerHTML = `<div class="loading"><div class="orb"></div>Collapsing the wave function… reading ${esc(short(address))} from Solana</div>`;
+  out.innerHTML = `<div class="loading"><div class="orb"></div>Reading ${esc(short(address))} from Solana…</div>`;
   go.disabled = true;
   history.replaceState(null, "", "/?a=" + encodeURIComponent(address));
   try {
