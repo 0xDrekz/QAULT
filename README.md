@@ -85,6 +85,14 @@ The server caches each answer for a minute and limits each caller to 20
 checks a minute so nobody can burn through the RPC key. It keeps no record
 of the addresses checked.
 
+## Working on it with Claude Code
+
+`.mcp.json` sets up Helius's official MCP server, which gives Claude tools
+for reading Solana accounts and transactions. It reads the key from the
+`HELIUS_API_KEY` environment variable, so set that in your environment
+(locally, or in the cloud environment's settings). The key never goes in
+the repo.
+
 ## Roadmap
 
 1. **Exposure checker** — this.
