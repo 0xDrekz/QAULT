@@ -16,6 +16,8 @@ const fs    = require("fs");
 const path  = require("path");
 const { decode, onCurve } = require("./address");
 const og = require("./og");
+const waitlist = require("./waitlist").open();
+const crypto = require("crypto");
 
 const PORT    = process.env.PORT || 3000;
 const ROOT    = path.join(__dirname, "public");
@@ -354,6 +356,49 @@ function devnet(req, res) {
   });
 }
 
+/* ---------- the waitlist ----------
+   POST /api/waitlist {email?, wallet?}  → { ok, position } — ten tries an hour per caller
+   GET  /api/waitlist/count              → { count }
+   GET  /api/waitlist/export?token=…     → the list as CSV, for whoever holds ADMIN_TOKEN */
+
+const waitHits = new Map();
+
+function readJson(req, limit) {
+  return new Promise(resolve => {
+    let body = "";
+    req.on("data", c => { body += c; if (body.length > limit) req.destroy(); });
+    req.on("end", () => { try { resolve(JSON.parse(body)); } catch { resolve(null); } });
+    req.on("error", () => resolve(null));
+  });
+}
+
+async function join(req, res) {
+  if (req.method !== "POST") return send(res, 405, JSON.stringify({ error: "POST only" }));
+  const body = await readJson(req, 4_000);
+  if (!body) return send(res, 400, JSON.stringify({ error: "Something went wrong. Try again." }));
+  // a field people never see; bots fill it in
+  if (body.website) return send(res, 200, JSON.stringify({ ok: true, position: waitlist.count() + 1 }));
+  if (!under(waitHits, ipOf(req), 10, 60 * 60_000))
+    return send(res, 429, JSON.stringify({ error: "Too many tries. Give it an hour." }));
+  try {
+    const r = waitlist.add({ email: body.email, wallet: body.wallet });
+    send(res, r.error ? 400 : 200, JSON.stringify(r));
+  } catch (e) {
+    console.error("waitlist write failed:", e.message);
+    send(res, 500, JSON.stringify({ error: "Couldn't save that just now. Try again." }));
+  }
+}
+
+function exportList(res, url) {
+  const want = process.env.ADMIN_TOKEN || "";
+  const got = url.searchParams.get("token") || "";
+  const same = want.length >= 16 && got.length === want.length &&
+    crypto.timingSafeEqual(Buffer.from(got), Buffer.from(want));
+  if (!same) return send(res, 404, "Not found", "text/plain");
+  send(res, 200, waitlist.csv(), "text/csv; charset=utf-8",
+    { "Content-Disposition": "attachment; filename=qault-waitlist.csv", "Cache-Control": "no-store" });
+}
+
 /* ---------- health ----------
    Whether each RPC answers, and which kind it is. Never the key. */
 async function health(res) {
@@ -366,7 +411,7 @@ async function health(res) {
   const ok = mainnet === "ok" && dev === "ok";
   // the key's first 4 characters, so the owner can tell which key is in use
   const keyStart = u => ((u.match(/api-key=([A-Za-z0-9-]+)/) || [])[1] || "").slice(0, 4) || null;
-  send(res, ok ? 200 : 503, JSON.stringify({ ok, mainnet: { kind: kind(RPC_URL), keyStartsWith: keyStart(RPC_URL), status: mainnet }, devnet: { kind: kind(DEVNET_URL), status: dev }, publicUrl: process.env.PUBLIC_URL || null }));
+  send(res, ok ? 200 : 503, JSON.stringify({ ok, mainnet: { kind: kind(RPC_URL), keyStartsWith: keyStart(RPC_URL), status: mainnet }, devnet: { kind: kind(DEVNET_URL), status: dev }, publicUrl: process.env.PUBLIC_URL || null, waitlist: { count: waitlist.count(), durable: waitlist.durable } }));
 }
 
 /* ---------- share cards ----------
@@ -457,6 +502,9 @@ if (require.main === module) {
     if (url.pathname === "/api/check") return api(req, res, url);
     if (url.pathname === "/api/devnet") return devnet(req, res);
     if (url.pathname === "/api/health") return health(res);
+    if (url.pathname === "/api/waitlist") return join(req, res);
+    if (url.pathname === "/api/waitlist/count") return send(res, 200, JSON.stringify({ count: waitlist.count() }), undefined, { "Cache-Control": "public, max-age=60" });
+    if (url.pathname === "/api/waitlist/export") return exportList(res, url);
     if (req.method !== "GET" && req.method !== "HEAD") return send(res, 405, "Method not allowed", "text/plain");
     if (url.pathname === "/" || url.pathname === "/index.html") return page(req, res, url);
     if (url.pathname === "/og.png") return card(req, res, null);

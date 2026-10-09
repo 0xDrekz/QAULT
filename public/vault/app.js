@@ -30,6 +30,7 @@ function welcome() {
         <button class="btn" data-go="create">Create a vault <span class="arrow" aria-hidden="true">→</span></button>
         <button class="btn ghost" data-go="restore">Restore from recovery phrase</button>
       </div>
+      <p class="fine fade-in" style="--d:.6s">Waiting for real SOL? <a href="/#waitlist">Join the mainnet waitlist</a>.</p>
     </section>
     ${how()}`;
 }

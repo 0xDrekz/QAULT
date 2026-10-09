@@ -259,6 +259,16 @@ details summary { cursor: pointer; color: var(--accent); margin: 0 0 12px; font-
 .cta .btn { background: var(--accent-ink); color: var(--accent); }
 .cta .btn:hover { background: var(--paper); color: var(--ink); }
 
+.join { padding: 72px 0 0; }
+.join-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 40px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+.join-inner h2 { margin-bottom: 12px; }
+.join-inner p { color: var(--ink-2); margin: 0; max-width: 34em; }
+.join .eyebrow { margin-bottom: 16px; }
+.join-msg { font-size: 13px; color: var(--muted); margin: 12px 0 0; }
+.join-msg.ok { color: var(--shielded); font-size: 15px; }
+.join-msg.err { color: var(--high); font-size: 14px; }
+@media (max-width: 900px) { .join-inner { grid-template-columns: 1fr; gap: 24px; } }
+
 footer { max-width: 1160px; margin: 0 auto; padding: 28px 24px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 footer p { color: var(--muted); font-size: 13px; margin: 0; max-width: 70ch; }
 footer a { color: var(--ink-2); }

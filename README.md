@@ -88,6 +88,15 @@ The server caches each answer for a minute and limits each caller to 20
 checks a minute so nobody can burn through the RPC key. It keeps no record
 of the addresses checked.
 
+## Mainnet waitlist
+
+A form on the home page takes an email or a Solana wallet address.
+
+- Stored one JSON line per sign-up in `waitlist.jsonl` inside `DATA_DIR`. On Railway, attach a **Volume** mounted at `/data` (picked up automatically), or every redeploy empties the list. `/api/health` shows `waitlist.durable`.
+- `GET /api/waitlist/count` gives the number signed up; the form shows it once it reaches 25.
+- Download the list at `/api/waitlist/export?token=<ADMIN_TOKEN>`. Set `ADMIN_TOKEN` (16+ characters) in Railway's variables; without it, export is off.
+- No IP addresses are kept. Ten tries an hour per caller, plus a hidden field that catches bots.
+
 ## Working on it with Claude Code
 
 `.mcp.json` sets up Helius's official MCP server, which gives Claude tools

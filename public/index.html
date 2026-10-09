@@ -93,14 +93,34 @@
         <a class="btn" href="/vault">Try the vault <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
+
+    <section class="join" id="waitlist">
+      <div class="join-inner" data-reveal>
+        <div>
+          <p class="eyebrow">Mainnet waitlist</p>
+          <h2>Be first through the <em>door</em></h2>
+          <p>Leave an email or a Solana wallet address, and you'll be among the first let into the mainnet beta, once the vault has passed its audit.</p>
+        </div>
+        <div>
+          <form class="check join-form" data-join autocomplete="on">
+            <label for="contact" class="sr">Email or Solana wallet address</label>
+            <input id="contact" name="contact" placeholder="Email or wallet address" required spellcheck="false" autocapitalize="none">
+            <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="sr">
+            <button type="submit">Join <span class="arrow" aria-hidden="true">→</span></button>
+          </form>
+          <p class="join-msg" data-join-msg data-join-count aria-live="polite">No spam. One email when mainnet opens.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <p>QAULT reads public on-chain data and keeps no record of the addresses you check. Prices from Jupiter. Nothing here is financial advice, and nobody knows when, or whether, Q-Day will arrive.</p>
+    <p>QAULT reads public on-chain data and keeps no record of the addresses you check. Waitlist sign-ups are used only to tell you about QAULT. Prices from Jupiter. Nothing here is financial advice, and nobody knows when, or whether, Q-Day will arrive.</p>
     <p>QAULT · the quantum vault</p>
   </footer>
 
   <script src="motion.js"></script>
   <script src="app.js"></script>
+  <script src="join.js"></script>
 </body>
 </html>
