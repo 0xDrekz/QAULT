@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#fff"/>
+  <g transform="translate(100 90) scale(2.2)"><circle cx="15" cy="15" r="8.5" fill="none" stroke="#000" stroke-width="1.8"/><path d="M18.6 18.6l5.4 5.4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="15" r="2.2" fill="#000"/></g><text x="180" y="138" font-family="Inter" font-weight="600" font-size="28" letter-spacing="10" fill="#000">QAULT</text>
+  <text x="1500" y="138" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="22" letter-spacing="4" fill="#7a7a7a">Q-DAY READINESS</text>
+  <line x1="100" y1="190" x2="1500" y2="190" stroke="#d9d9d9"/>
+  <text x="96" y="318" font-family="Instrument Serif" font-size="118" letter-spacing="-2" fill="#000">Which one is <tspan font-style="italic">your</tspan> wallet?</text>
+  <text x="100" y="392" font-family="Inter" font-size="29" fill="#7a7a7a">Paste any Solana address. Read-only, no wallet connection, ten seconds.</text>
+  <rect x="100" y="450" width="256" height="270" rx="14" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="126" y="498" font-family="JetBrains Mono" font-weight="500" font-size="18" letter-spacing="3" fill="#000" opacity=".7">01</text>
+  <text x="124" y="618" font-family="Instrument Serif" font-size="58" fill="#000">Shielded</text>
+  <text x="126" y="660" font-family="Inter" font-size="21" fill="#000">No private key</text>
+  <text x="126" y="688" font-family="Inter" font-size="21" fill="#000">exists at all</text><rect x="386" y="450" width="256" height="270" rx="14" fill="#ececec" stroke="#000" stroke-width="2"/>
+  <text x="412" y="498" font-family="JetBrains Mono" font-weight="500" font-size="18" letter-spacing="3" fill="#000" opacity=".7">02</text>
+  <text x="410" y="618" font-family="Instrument Serif" font-size="58" fill="#000">Empty</text>
+  <text x="412" y="660" font-family="Inter" font-size="21" fill="#000">Key is public,</text>
+  <text x="412" y="688" font-family="Inter" font-size="21" fill="#000">nothing behind it</text><rect x="672" y="450" width="256" height="270" rx="14" fill="#bdbdbd" stroke="#000" stroke-width="2"/>
+  <text x="698" y="498" font-family="JetBrains Mono" font-weight="500" font-size="18" letter-spacing="3" fill="#000" opacity=".7">03</text>
+  <text x="696" y="618" font-family="Instrument Serif" font-size="58" fill="#000">Low</text>
+  <text x="698" y="660" font-family="Inter" font-size="21" fill="#000">Under $1k</text>
+  <text x="698" y="688" font-family="Inter" font-size="21" fill="#000">behind the key</text><rect x="958" y="450" width="256" height="270" rx="14" fill="#5c5c5c" stroke="#000" stroke-width="2"/>
+  <text x="984" y="498" font-family="JetBrains Mono" font-weight="500" font-size="18" letter-spacing="3" fill="#fff" opacity=".7">04</text>
+  <text x="982" y="618" font-family="Instrument Serif" font-size="58" fill="#fff">Medium</text>
+  <text x="984" y="660" font-family="Inter" font-size="21" fill="#fff">$1k – $100k</text>
+  <text x="984" y="688" font-family="Inter" font-size="21" fill="#fff">behind the key</text><rect x="1244" y="450" width="256" height="270" rx="14" fill="#000" stroke="#000" stroke-width="2"/>
+  <text x="1270" y="498" font-family="JetBrains Mono" font-weight="500" font-size="18" letter-spacing="3" fill="#fff" opacity=".7">05</text>
+  <text x="1268" y="618" font-family="Instrument Serif" font-size="58" fill="#fff">High</text>
+  <text x="1270" y="660" font-family="Inter" font-size="21" fill="#fff">Over $100k</text>
+  <text x="1270" y="688" font-family="Inter" font-size="21" fill="#fff">behind the key</text>
+  <line x1="100" y1="790" x2="1500" y2="790" stroke="#d9d9d9"/>
+  <text x="104" y="842" font-family="JetBrains Mono" font-weight="500" font-size="24" fill="#000">Check yours → qault.xyz</text>
+  <text x="1500" y="842" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="24" fill="#7a7a7a">Reply with your result</text></svg>
