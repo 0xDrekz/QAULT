@@ -301,26 +301,3 @@ footer a { color: var(--ink-2); }
   .rise .w > span { transform: none; }
   html { scroll-behavior: auto; }
 }
-
-/* official token contract address, top of every page */
-.ca-bar {
-  position: relative; z-index: 2;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 8px 16px;
-  background: var(--ink); color: var(--paper);
-  font-size: 13px;
-}
-.ca-label { font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
-.ca-addr {
-  font-family: var(--mono); font-size: 12.5px;
-  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  user-select: all;
-}
-.ca-copy {
-  flex: none; font: inherit; font-size: 12px; font-weight: 500;
-  padding: 3px 10px; border-radius: 999px; cursor: pointer;
-  color: var(--paper); background: transparent;
-  border: 1px solid color-mix(in srgb, var(--paper) 40%, transparent);
-  transition: background .2s var(--ease);
-}
-.ca-copy:hover { background: color-mix(in srgb, var(--paper) 14%, transparent); }
