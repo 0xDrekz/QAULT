@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#fff"/>
+  <g transform="translate(100 90) scale(2.2)"><circle cx="15" cy="15" r="8.5" fill="none" stroke="#000" stroke-width="1.8"/><path d="M18.6 18.6l5.4 5.4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="15" r="2.2" fill="#000"/></g><text x="180" y="138" font-family="Inter" font-weight="600" font-size="28" letter-spacing="10" fill="#000">QAULT</text>
+  <text x="1500" y="138" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="22" letter-spacing="4" fill="#7a7a7a">ROADMAP</text>
+  <line x1="100" y1="190" x2="1500" y2="190" stroke="#d9d9d9"/>
+  <text x="96" y="318" font-family="Instrument Serif" font-size="112" letter-spacing="-2" fill="#000">Built first. <tspan font-style="italic">Audited next.</tspan></text>
+  <text x="100" y="384" font-family="Inter" font-size="29" fill="#7a7a7a">No real funds go into a QAULT vault until it has passed an independent audit.</text>
+  <line x1="116" y1="520" x2="824" y2="520" stroke="#000" stroke-width="3"/>
+  <line x1="824" y1="520" x2="1296" y2="520" stroke="#000" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round"/><circle cx="116" cy="520" r="16" fill="#000"/><path d="M109 520 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="100" y="468" font-family="JetBrains Mono" font-weight="500" font-size="17" letter-spacing="3" fill="#000">DONE</text>
+  <text x="100" y="602" font-family="Instrument Serif" font-size="33" fill="#000">Exposure checker</text>
+  <text x="100" y="640" font-family="Inter" font-size="20" fill="#000">Live at qault.xyz</text>
+  <circle cx="352" cy="520" r="16" fill="#000"/><path d="M345 520 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="336" y="468" font-family="JetBrains Mono" font-weight="500" font-size="17" letter-spacing="3" fill="#000">DONE</text>
+  <text x="336" y="602" font-family="Instrument Serif" font-size="33" fill="#000">Vault on devnet</text>
+  <text x="336" y="640" font-family="Inter" font-size="20" fill="#000">Hash-based keys,</text>
+  <text x="336" y="668" font-family="Inter" font-size="20" fill="#000">auto-rotating</text><circle cx="588" cy="520" r="16" fill="#000"/><path d="M581 520 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="572" y="468" font-family="JetBrains Mono" font-weight="500" font-size="17" letter-spacing="3" fill="#000">DONE</text>
+  <text x="572" y="602" font-family="Instrument Serif" font-size="33" fill="#000">Open source</text>
+  <text x="572" y="640" font-family="Inter" font-size="20" fill="#000">Every line public</text>
+  <text x="572" y="668" font-family="Inter" font-size="20" fill="#000">on GitHub</text><circle cx="824" cy="520" r="15" fill="#fff" stroke="#000" stroke-width="2.5"/><circle cx="824" cy="520" r="26" fill="none" stroke="#000" stroke-width="1.5" stroke-dasharray="4 5"/>
+  <text x="808" y="468" font-family="JetBrains Mono" font-weight="500" font-size="17" letter-spacing="3" fill="#7a7a7a">NEXT</text>
+  <text x="808" y="602" font-family="Instrument Serif" font-size="33" fill="#000">Independent audit</text>
+  <text x="808" y="640" font-family="Inter" font-size="20" fill="#7a7a7a">Brief ready,</text>
+  <text x="808" y="668" font-family="Inter" font-size="20" fill="#7a7a7a">quotes requested</text><circle cx="1060" cy="520" r="15" fill="#fff" stroke="#000" stroke-width="2.5"/>
+  <text x="1044" y="468" font-family="JetBrains Mono" font-weight="500" font-size="17" letter-spacing="3" fill="#7a7a7a">LATER</text>
+  <text x="1044" y="602" font-family="Instrument Serif" font-size="33" fill="#000">Mainnet beta</text>
+  <text x="1044" y="640" font-family="Inter" font-size="20" fill="#7a7a7a">Waitlist first,</text>
+  <text x="1044" y="668" font-family="Inter" font-size="20" fill="#7a7a7a">deposit caps on</text><circle cx="1296" cy="520" r="15" fill="#fff" stroke="#000" stroke-width="2.5"/>
+  <text x="1280" y="468" font-family="JetBrains Mono" font-weight="500" font-size="17" letter-spacing="3" fill="#7a7a7a">LATER</text>
+  <text x="1280" y="602" font-family="Instrument Serif" font-size="33" fill="#000">Multisig</text>
+  <text x="1280" y="640" font-family="Inter" font-size="20" fill="#7a7a7a">Shared upgrade key,</text>
+  <text x="1280" y="668" font-family="Inter" font-size="20" fill="#7a7a7a">SPL token vaults</text>
+  <line x1="100" y1="760" x2="1500" y2="760" stroke="#d9d9d9"/>
+  <text x="104" y="826" font-family="JetBrains Mono" font-weight="500" font-size="24" fill="#000">Join the mainnet waitlist → qault.xyz</text>
+  <text x="1500" y="826" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="24" fill="#7a7a7a">github.com/0xDrekz/QAULT</text></svg>
