@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#fff"/>
+  <g transform="translate(100 90) scale(2.2)"><circle cx="15" cy="15" r="8.5" fill="none" stroke="#000" stroke-width="1.8"/><path d="M18.6 18.6l5.4 5.4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="15" r="2.2" fill="#000"/></g><text x="180" y="138" font-family="Inter" font-weight="600" font-size="28" letter-spacing="10" fill="#000">QAULT</text>
+  <text x="1500" y="138" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="22" letter-spacing="4" fill="#7a7a7a">ONE KEY · ONE SPEND</text>
+  <line x1="100" y1="190" x2="1500" y2="190" stroke="#d9d9d9"/>
+  <text x="96" y="310" font-family="Instrument Serif" font-size="100" letter-spacing="-2" fill="#000">One key. One spend. <tspan font-style="italic">Then it's gone.</tspan></text>
+  <text x="100" y="384" font-family="Inter" font-size="29" fill="#7a7a7a">Every time you send, the rest of your SOL moves to a new vault with a brand-new key.</text>
+  
+  <rect x="100" y="470" width="340" height="150" rx="14" fill="#fff" stroke="#7a7a7a" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="132" y="520" font-family="JetBrains Mono" font-weight="500" font-size="20" letter-spacing="4" fill="#7a7a7a">VAULT 0</text>
+  <text x="130" y="574" font-family="Instrument Serif" font-size="46" fill="#7a7a7a">Key used up</text>
+  <text x="408" y="520" text-anchor="end" font-family="Inter" font-weight="600" font-size="20" fill="#7a7a7a">empty</text>
+  <rect x="630" y="470" width="340" height="150" rx="14" fill="#fff" stroke="#7a7a7a" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="662" y="520" font-family="JetBrains Mono" font-weight="500" font-size="20" letter-spacing="4" fill="#7a7a7a">VAULT 1</text>
+  <text x="660" y="574" font-family="Instrument Serif" font-size="46" fill="#7a7a7a">Key used up</text>
+  <text x="938" y="520" text-anchor="end" font-family="Inter" font-weight="600" font-size="20" fill="#7a7a7a">empty</text>
+  <rect x="1160" y="470" width="340" height="150" rx="14" fill="#000" stroke="#000" stroke-width="2" />
+  <text x="1192" y="520" font-family="JetBrains Mono" font-weight="500" font-size="20" letter-spacing="4" fill="#fff">VAULT 2</text>
+  <text x="1190" y="574" font-family="Instrument Serif" font-size="46" fill="#fff">Fresh key</text>
+  <text x="1468" y="520" text-anchor="end" font-family="Inter" font-weight="600" font-size="20" fill="#fff">● active</text>
+  <line x1="440" y1="545" x2="618" y2="545" stroke="#000" stroke-width="2"/>
+  <path d="M616 537 L628 545 L616 553" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+  <text x="535" y="529" text-anchor="middle" font-family="JetBrains Mono" font-weight="500" font-size="17" letter-spacing="2" fill="#7a7a7a">THE REST</text>
+  <line x1="535" y1="545" x2="535" y2="657" stroke="#000" stroke-width="2"/>
+  <path d="M527 645 L535 657 L543 645" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+  <text x="535" y="693" text-anchor="middle" font-family="Inter" font-weight="600" font-size="24" fill="#000">Sent 2 SOL</text><line x1="970" y1="545" x2="1148" y2="545" stroke="#000" stroke-width="2"/>
+  <path d="M1146 537 L1158 545 L1146 553" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+  <text x="1065" y="529" text-anchor="middle" font-family="JetBrains Mono" font-weight="500" font-size="17" letter-spacing="2" fill="#7a7a7a">THE REST</text>
+  <line x1="1065" y1="545" x2="1065" y2="657" stroke="#000" stroke-width="2"/>
+  <path d="M1057 645 L1065 657 L1073 645" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+  <text x="1065" y="693" text-anchor="middle" font-family="Inter" font-weight="600" font-size="24" fill="#000">Sent 0.5 SOL</text>
+  <line x1="100" y1="790" x2="1500" y2="790" stroke="#d9d9d9"/>
+  <text x="104" y="842" font-family="JetBrains Mono" font-weight="500" font-size="24" fill="#000">Try it free on devnet → qault.xyz/vault</text>
+  <text x="1500" y="842" text-anchor="end" font-family="JetBrains Mono" font-weight="500" font-size="24" fill="#7a7a7a">Open source</text></svg>
